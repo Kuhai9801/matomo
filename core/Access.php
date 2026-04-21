@@ -11,12 +11,18 @@ namespace Piwik;
 
 use Exception;
 use Piwik\Access\CapabilitiesProvider;
+use Piwik\Access\Role\Admin;
+use Piwik\Access\Role\View;
+use Piwik\Access\Role\Write;
 use Piwik\API\Request;
 use Piwik\Access\RolesProvider;
 use Piwik\Http\BadRequestException;
 use Piwik\Request\AuthenticationToken;
 use Piwik\Container\StaticContainer;
+use Piwik\Log\LoggerInterface;
 use Piwik\Plugins\SitesManager\API as SitesManagerApi;
+use Piwik\Plugins\SitesManager\Model as SitesManagerModel;
+use Piwik\Plugins\UsersManager\Model as UsersModel;
 use Piwik\Session\SessionAuth;
 
 /**
@@ -73,6 +79,20 @@ class Access
     protected $hasSuperUserAccess = false;
 
     /**
+     * Optional token-level access cap loaded from auth context.
+     *
+     * @var string|null
+     */
+    private $tokenAccessLevel = null;
+
+    /**
+     * Whether the current auth result had superuser access before token-level clamping.
+     *
+     * @var bool
+     */
+    private $isCurrentAuthSuperUser = false;
+
+    /**
      * Authentification object (see Auth)
      *
      * @var Auth
@@ -120,12 +140,7 @@ class Access
 
     private function resetSites()
     {
-        $this->idsitesByAccess = array(
-            'view'      => array(),
-            'write'     => array(),
-            'admin'     => array(),
-            'superuser' => array(),
-        );
+        $this->idsitesByAccess = $this->getEmptyRoleSiteIds();
     }
 
     /**
@@ -142,6 +157,8 @@ class Access
     public function reloadAccess(?Auth $auth = null)
     {
         $this->resetSites();
+        $this->tokenAccessLevel = null;
+        $this->isCurrentAuthSuperUser = false;
 
         if (isset($auth)) {
             $this->auth = $auth;
@@ -194,9 +211,11 @@ class Access
 
         $this->login = $result->getIdentity();
         $this->token_auth = $result->getTokenAuth();
+        $this->tokenAccessLevel = $this->resolveTokenAccessLevelForResult($result);
+        $this->isCurrentAuthSuperUser = $result->hasSuperUserAccess();
 
         // case the superUser is logged in
-        if ($result->hasSuperUserAccess()) {
+        if ($result->hasSuperUserAccess() && !$this->isSuperUserRestrictedByTokenAccessLevel()) {
             $this->setSuperUserAccess(true);
         }
 
@@ -303,8 +322,292 @@ class Access
                  * @param string $login The current user's login.
                  */
                 Piwik::postEvent('Access.modifyUserAccess', [&$this->idsitesByAccess, $this->login]);
+
+                $this->applyTokenAccessLevelRestrictionToLoadedSites();
             }
         }
+    }
+
+    /**
+     * Applies token-level role clamping after initial access + event modifications are loaded.
+     *
+     * Sites that the user only reaches via a manually-granted capability row (no role row) are
+     * filtered out here, because such sites never enter {@see buildSiteRoleMap()}. A scoped token
+     * therefore loses access to those sites entirely, even if the capability would otherwise be
+     * compatible with the clamped role. Users that rely on capability-only access should issue
+     * unscoped tokens.
+     */
+    private function applyTokenAccessLevelRestrictionToLoadedSites(): void
+    {
+        if (empty($this->tokenAccessLevel) || $this->tokenAccessLevel === 'superuser') {
+            return;
+        }
+
+        $siteRoleMap = $this->buildSiteRoleMap();
+
+        if ($this->isSuperUserRestrictedByTokenAccessLevel()) {
+            try {
+                // A capped superuser token no longer has superuser privileges, so API-level
+                // getAllSitesId() would fail permission checks. Fetch raw site IDs directly.
+                $allSiteIds = $this->getSitesManagerModel()->getSitesId();
+            } catch (\Exception $e) {
+                StaticContainer::get(LoggerInterface::class)->debug(
+                    'Could not enumerate sites while applying token-level access restriction; '
+                    . 'capped superuser token will fall back to sites with explicit access only. {exception}',
+                    ['exception' => $e]
+                );
+                $allSiteIds = [];
+            }
+            // Sites not present in the explicit access rows have implicit superuser access.
+            foreach ($allSiteIds as $idSite) {
+                if (!isset($siteRoleMap[$idSite])) {
+                    $siteRoleMap[$idSite] = 'superuser';
+                }
+            }
+        }
+
+        $restrictedByRole = $this->getEmptyRoleSiteIds();
+        $restrictedRolesBySite = [];
+
+        foreach ($siteRoleMap as $idSite => $currentRole) {
+            $restrictedRole = $this->clampRoleByTokenAccessLevel($currentRole);
+            if ($restrictedRole === 'noaccess') {
+                continue;
+            }
+
+            $restrictedByRole[$restrictedRole][] = $idSite;
+            $restrictedRolesBySite[$idSite] = $restrictedRole;
+        }
+
+        $this->replaceRoleSiteIds($restrictedByRole);
+        $this->rebuildCapabilitySiteIdsFromRoles($restrictedRolesBySite);
+    }
+
+    /**
+     * Returns a map of site ID to the highest role currently loaded for that site.
+     *
+     * Roles are checked from highest to lowest priority so the first assignment wins.
+     *
+     * @return array<int|string, string>
+     */
+    private function buildSiteRoleMap(): array
+    {
+        $map = [];
+        foreach (self::getTokenAccessLevelsDescending() as $role) {
+            foreach ($this->idsitesByAccess[$role] as $idSite) {
+                if (!isset($map[$idSite])) {
+                    $map[$idSite] = $role;
+                }
+            }
+        }
+        return $map;
+    }
+
+    /**
+     * @return array<string,array<int,int|string>>
+     */
+    private function getEmptyRoleSiteIds(): array
+    {
+        return [
+            'view' => [],
+            'write' => [],
+            'admin' => [],
+            'superuser' => [],
+        ];
+    }
+
+    /**
+     * @param array<string,array<int,int|string>> $siteIdsByRole
+     */
+    private function replaceRoleSiteIds(array $siteIdsByRole): void
+    {
+        foreach ($this->getEmptyRoleSiteIds() as $role => $emptySiteIds) {
+            $this->idsitesByAccess[$role] = array_values(array_unique($siteIdsByRole[$role] ?? $emptySiteIds));
+        }
+    }
+
+    /**
+     * Scoped tokens are role-only: capabilities are derived from the capped effective role,
+     * and separately granted capability rows are ignored. A user with a manual capability grant on a
+     * site (and no role on that site) loses the capability under any scoped token, even when the
+     * capability's role tier would be compatible with the clamp; "Inherit user access" is the only
+     * way to keep such grants.
+     *
+     * @param array<int|string,string> $rolesBySite
+     */
+    private function rebuildCapabilitySiteIdsFromRoles(array $rolesBySite): void
+    {
+        $capabilities = $this->capabilityProvider->getAllCapabilities();
+
+        foreach ($capabilities as $capability) {
+            $this->idsitesByAccess[$capability->getId()] = [];
+        }
+
+        foreach ($rolesBySite as $idSite => $role) {
+            foreach ($capabilities as $capability) {
+                if (!$capability->hasRoleCapability($role)) {
+                    continue;
+                }
+
+                $this->idsitesByAccess[$capability->getId()][] = $idSite;
+            }
+        }
+
+        foreach ($capabilities as $capability) {
+            $capabilityId = $capability->getId();
+            $this->idsitesByAccess[$capabilityId] = array_values(array_unique($this->idsitesByAccess[$capabilityId]));
+        }
+    }
+
+    private function isSuperUserRestrictedByTokenAccessLevel(): bool
+    {
+        return $this->isCurrentAuthSuperUser
+            && !empty($this->tokenAccessLevel)
+            && $this->tokenAccessLevel !== 'superuser';
+    }
+
+    /**
+     * Returns the canonical numeric ranking for each role/access level used for token clamping.
+     * Lower numbers mean less access; 'noaccess' (0) is the floor.
+     *
+     * @return array<string,int>
+     */
+    public static function getTokenAccessLevelRankings(): array
+    {
+        return [
+            'noaccess'  => 0,
+            View::ID    => 1,
+            Write::ID   => 2,
+            Admin::ID   => 3,
+            'superuser' => 4,
+        ];
+    }
+
+    /**
+     * Returns the user-assignable token access levels in ascending order of privilege.
+     *
+     * Derived from {@see getTokenAccessLevelRankings()} with the 'noaccess' floor removed,
+     * so this is the canonical source of truth for the levels a token can be scoped to.
+     *
+     * @return string[]
+     */
+    public static function getTokenAccessLevels(): array
+    {
+        $levels = array_keys(self::getTokenAccessLevelRankings());
+        return array_values(array_filter($levels, function (string $level) {
+            return $level !== 'noaccess';
+        }));
+    }
+
+    /**
+     * Returns the user-assignable token access levels in descending order of privilege.
+     *
+     * Companion to {@see getTokenAccessLevels()} for callers that iterate from most to least privileged
+     * (e.g. role-priority resolution and human-readable error messages).
+     *
+     * @return string[]
+     */
+    public static function getTokenAccessLevelsDescending(): array
+    {
+        return array_reverse(self::getTokenAccessLevels());
+    }
+
+    private function clampRoleByTokenAccessLevel(string $role): string
+    {
+        if (empty($this->tokenAccessLevel) || $this->tokenAccessLevel === 'superuser') {
+            return $role;
+        }
+
+        $rankByRole = self::getTokenAccessLevelRankings();
+        $roleByRank = array_flip($rankByRole);
+
+        $roleRank = $rankByRole[$role] ?? null;
+        $tokenRank = $rankByRole[$this->tokenAccessLevel] ?? null;
+        if ($roleRank === null || $tokenRank === null) {
+            return $role;
+        }
+
+        return $roleByRank[min($roleRank, $tokenRank)];
+    }
+
+    private function getTokenAccessLevelFromAuthContext(?array $authContext): ?string
+    {
+        $tokenAccessLevel = $authContext['token_access_level'] ?? null;
+        if (!is_string($tokenAccessLevel)) {
+            return null;
+        }
+
+        if (!in_array($tokenAccessLevel, self::getTokenAccessLevels(), true)) {
+            return null;
+        }
+
+        return $tokenAccessLevel;
+    }
+
+    /**
+     * Resolves the token-level access cap for an authenticated request.
+     *
+     * Auth plugins that forward token metadata via {@see AuthResult::getAuthContext()} (core Login does this)
+     * own the result. When no context is provided at all (e.g. third-party auth plugins that still build
+     * AuthResult with the legacy three-arg form), the cap is derived from the submitted token's
+     * user_token_auth row so scope clamping is enforced regardless of which Piwik\Auth implementation is
+     * active. Password and session login carry no submitted token and therefore nothing to clamp.
+     */
+    private function resolveTokenAccessLevelForResult(AuthResult $result): ?string
+    {
+        $authContext = $result->getAuthContext();
+        $tokenAccessLevel = $this->getTokenAccessLevelFromAuthContext($authContext);
+        if ($tokenAccessLevel !== null) {
+            return $tokenAccessLevel;
+        }
+
+        if ($authContext !== null) {
+            return null;
+        }
+
+        return $this->resolveTokenAccessLevelFromSubmittedToken();
+    }
+
+    private function resolveTokenAccessLevelFromSubmittedToken(): ?string
+    {
+        $submittedToken = StaticContainer::get(AuthenticationToken::class)->getAuthToken();
+        if (empty($submittedToken)) {
+            return null;
+        }
+
+        try {
+            // getTokenMetadataByTokenAuth() is cache-aware and serves the row from
+            // AuthenticationToken's per-request cache when populated by an earlier lookup in this
+            // request (e.g. Login\Auth::authenticateWithToken). The shared cache is intentional:
+            // the access_level value is identical across callers in the same request, so reusing it
+            // avoids re-querying user_token_auth on every reloadAccess() in bulk API and CliMulti
+            // paths.
+            $metadata = $this->getUsersModel()->getTokenMetadataByTokenAuth($submittedToken);
+        } catch (\Exception $e) {
+            StaticContainer::get(LoggerInterface::class)->debug(
+                'Could not look up token metadata while resolving token access level; '
+                . 'falling back to uncapped access. {exception}',
+                ['exception' => $e]
+            );
+            return null;
+        }
+
+        $accessLevel = $metadata['access_level'] ?? null;
+        if (!is_string($accessLevel) || !in_array($accessLevel, self::getTokenAccessLevels(), true)) {
+            return null;
+        }
+
+        return $accessLevel;
+    }
+
+    protected function getUsersModel(): UsersModel
+    {
+        return new UsersModel();
+    }
+
+    protected function getSitesManagerModel(): SitesManagerModel
+    {
+        return new SitesManagerModel();
     }
 
     /**
@@ -724,6 +1027,8 @@ class Access
      */
     public function getCapabilitiesForSite($idSite)
     {
+        $this->loadSitesIfNeeded();
+
         $result = [];
         foreach ($this->capabilityProvider->getAllCapabilityIds() as $capabilityId) {
             if (empty($this->idsitesByAccess[$capabilityId])) {

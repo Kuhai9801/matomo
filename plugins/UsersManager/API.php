@@ -1513,6 +1513,9 @@ class API extends \Piwik\Plugin\API
      * @param int|string $expireHours Optional number of hours before the token expires. Ignored when `$expireDate` is
      *                                set.
      * @param bool $secureOnly `true` if the token must not be accepted in GET requests.
+     * @param string|null $accessLevel Optional maximum permission to embed in the generated token (since 5.11.0).
+     *                                 If omitted, `null`, or an empty string, the token remains unscoped and
+     *                                 preserves the user's normal token behavior.
      * @return string Newly generated app-specific token.
      */
     public function createAppSpecificTokenAuth(
@@ -1522,7 +1525,8 @@ class API extends \Piwik\Plugin\API
         string $description,
         $expireDate = null,
         $expireHours = 0,
-        bool $secureOnly = false
+        bool $secureOnly = false,
+        ?string $accessLevel = null
     ) {
         $user = $this->model->getUser($userLogin);
         if (empty($user) && Piwik::isValidEmailString($userLogin)) {
@@ -1550,8 +1554,17 @@ class API extends \Piwik\Plugin\API
             $expireDate = Date::factory($expireDate)->getDatetime();
         }
 
+        // The HTTP API layer (core/API/Proxy.php) preserves empty-string parameters rather than
+        // substituting the default, so a caller who sends `access_level=` (matching the form's
+        // "Inherit user access" hidden input default) lands here with an empty string. Coerce it
+        // to null so HTTP and PHP callers both end up at the unscoped path.
+        if ($accessLevel === '') {
+            $accessLevel = null;
+        }
+        $accessLevel = $this->model->normalizeAndValidateTokenAccessLevelForUser($userLogin, $accessLevel, false);
+
         $generatedToken = $this->model->generateRandomTokenAuth();
-        $this->model->addTokenAuth($userLogin, $generatedToken, $description, Date::now()->getDatetime(), $expireDate, false, $secureOnly);
+        $this->model->addTokenAuth($userLogin, $generatedToken, $description, Date::now()->getDatetime(), $expireDate, false, $secureOnly, $accessLevel);
 
         return $generatedToken;
     }

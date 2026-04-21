@@ -44,6 +44,13 @@ class AuthResult
     protected $code = null;
 
     /**
+     * Optional authentication context payload.
+     *
+     * @var array<string,mixed>|null
+     */
+    protected $authContext = null;
+
+    /**
      * Constructor for AuthResult
      *
      * @param int    $code
@@ -54,11 +61,13 @@ class AuthResult
         $code,
         $login,
         #[\SensitiveParameter]
-        $tokenAuth
+        $tokenAuth,
+        ?array $authContext = null
     ) {
         $this->code      = (int)$code;
         $this->login     = $login;
         $this->tokenAuth = $tokenAuth;
+        $this->authContext = $authContext;
     }
 
     /**
@@ -109,5 +118,15 @@ class AuthResult
     public function wasAuthenticationSuccessful()
     {
         return $this->code > self::FAILURE;
+    }
+
+    /**
+     * Returns optional context payload set during authentication.
+     *
+     * @return array<string,mixed>|null
+     */
+    public function getAuthContext()
+    {
+        return $this->authContext;
     }
 }

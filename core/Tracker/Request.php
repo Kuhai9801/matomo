@@ -10,6 +10,9 @@
 namespace Piwik\Tracker;
 
 use Exception;
+use Piwik\Access;
+use Piwik\Access\Role\Admin;
+use Piwik\Access\Role\Write;
 use Piwik\Request\AuthenticationToken;
 use Piwik\Common;
 use Piwik\Container\StaticContainer;
@@ -225,19 +228,21 @@ class Request
             return false;
         }
 
-        // Now checking the list of admin token_auth cached in the Tracker config file
-        if (!empty($idSite) && $idSite > 0) {
-            $website = Cache::getCacheWebsiteAttributes($idSite);
-            $userModel = new \Piwik\Plugins\UsersManager\Model();
-            $tokenAuthHashed = $userModel->hashTokenAuth($tokenAuth);
-            $hashedToken = UsersManager::hashTrackingToken((string) $tokenAuthHashed, $idSite);
+        if (empty($idSite) || $idSite <= 0) {
+            return false;
+        }
 
-            if (
-                array_key_exists('tracking_token_auth', $website)
-                && in_array($hashedToken, $website['tracking_token_auth'], true)
-            ) {
-                return true;
-            }
+        // Now checking the list of admin token_auth cached in the Tracker config file
+        $website = Cache::getCacheWebsiteAttributes($idSite);
+        $userModel = new \Piwik\Plugins\UsersManager\Model();
+        $tokenAuthHashed = $userModel->hashTokenAuth($tokenAuth);
+        $hashedToken = UsersManager::hashTrackingToken((string) $tokenAuthHashed, $idSite);
+
+        if (
+            array_key_exists('tracking_token_auth', $website)
+            && in_array($hashedToken, $website['tracking_token_auth'], true)
+        ) {
+            return true;
         }
 
         Piwik::postEvent('Request.initAuthenticationObject');
@@ -248,9 +253,27 @@ class Request
         $auth->setLogin(null);
         $auth->setPassword(null);
         $auth->setPasswordHash(null);
-        $access = $auth->authenticate();
+        $access = new Access();
+        if (!$access->reloadAccess($auth)) {
+            Common::printDebug("WARNING! token_auth = $tokenAuth is not valid, Super User / Admin / Write was NOT authenticated");
 
-        if (!empty($access) && $access->hasSuperUserAccess()) {
+            /**
+             * @ignore
+             * @internal
+             */
+            Piwik::postEvent('Tracker.Request.authenticate.failed');
+
+            return false;
+        }
+
+        // Admin/write tokens are normally authenticated via the per-site tracker cache above; the slow path
+        // also accepts them so it stays correct during cache-miss windows (e.g. just after a user/token
+        // change) and so scoped-token role clamping in Access::reloadAccess() is honoured here.
+        // The accepted token shape must stay consistent with the access_level filter in
+        // {@see \Piwik\Plugins\UsersManager\Model::getAllHashedTokensForTrackerCacheForLogins()}: both
+        // paths reject view-scoped tokens and accept unscoped or write/admin/superuser-scoped tokens
+        // for users with admin or write site role. Keep them in sync.
+        if ($access->hasSuperUserAccess() || in_array($access->getRoleForSite($idSite), [Write::ID, Admin::ID], true)) {
             return true;
         }
 
