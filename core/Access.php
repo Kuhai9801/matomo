@@ -551,7 +551,9 @@ class Access
      * own the result. When no context is provided at all (e.g. third-party auth plugins that still build
      * AuthResult with the legacy three-arg form), the cap is derived from the submitted token's
      * user_token_auth row so scope clamping is enforced regardless of which Piwik\Auth implementation is
-     * active. Password and session login carry no submitted token and therefore nothing to clamp.
+     * active. The fallback is gated on the AuthResult's own tokenAuth matching the request's submitted
+     * token so password/session login (no submitted token) and bulk-API sub-requests authenticated against
+     * a different token than the outer request never clamp from an unrelated token row.
      */
     private function resolveTokenAccessLevelForResult(AuthResult $result): ?string
     {
@@ -565,16 +567,16 @@ class Access
             return null;
         }
 
-        return $this->resolveTokenAccessLevelFromSubmittedToken();
-    }
-
-    private function resolveTokenAccessLevelFromSubmittedToken(): ?string
-    {
         $submittedToken = StaticContainer::get(AuthenticationToken::class)->getAuthToken();
-        if (empty($submittedToken)) {
+        if ($submittedToken === '' || $submittedToken !== $result->getTokenAuth()) {
             return null;
         }
 
+        return $this->resolveTokenAccessLevelFromSubmittedToken($submittedToken);
+    }
+
+    private function resolveTokenAccessLevelFromSubmittedToken(string $submittedToken): ?string
+    {
         try {
             // getTokenMetadataByTokenAuth() is cache-aware and serves the row from
             // AuthenticationToken's per-request cache when populated by an earlier lookup in this

@@ -246,6 +246,66 @@ class AuthenticationToken
         return $this->tokenMetadataCache[$this->getTokenMetadataCacheKey()] ?? null;
     }
 
+    /**
+     * Returns true when token metadata was cached for this exact (token, secure-state) pair. Lets callers
+     * distinguish a cached null (token not found) from "not in cache".
+     */
+    public function hasCachedTokenMetadata(
+        #[\SensitiveParameter]
+        ?string $tokenAuth,
+        bool $isTokenProvidedSecurely
+    ): bool {
+        if (
+            $tokenAuth === null
+            || $tokenAuth !== $this->authToken
+            || $isTokenProvidedSecurely !== $this->wasTokenProvidedSecurely
+        ) {
+            return false;
+        }
+        return array_key_exists($this->getTokenMetadataCacheKey(), $this->tokenMetadataCache);
+    }
+
+    /**
+     * Returns cached token metadata for this exact (token, secure-state) pair, or null when missing or when
+     * the cache holds a null entry (token not found / expired). Pair with hasCachedTokenMetadata() to disambiguate.
+     *
+     * @return array<string,mixed>|null
+     */
+    public function getCachedTokenMetadata(
+        #[\SensitiveParameter]
+        ?string $tokenAuth,
+        bool $isTokenProvidedSecurely
+    ): ?array {
+        if (!$this->hasCachedTokenMetadata($tokenAuth, $isTokenProvidedSecurely)) {
+            return null;
+        }
+        return $this->tokenMetadataCache[$this->getTokenMetadataCacheKey()];
+    }
+
+    /**
+     * Stores token metadata in the per-request cache, but only for the request's own token at the
+     * request's actual transport security. Lookups for any other (token, secure-state) pair are silently
+     * dropped, so the cache never holds entries that could leak across security contexts or sub-request
+     * tokens (bulk API / bulk tracker requests).
+     *
+     * @param array<string,mixed>|null $metadata Token row to cache, or null when the token was not found.
+     */
+    public function cacheTokenMetadata(
+        #[\SensitiveParameter]
+        ?string $tokenAuth,
+        bool $isTokenProvidedSecurely,
+        ?array $metadata
+    ): void {
+        if (
+            $tokenAuth === null
+            || $tokenAuth !== $this->authToken
+            || $isTokenProvidedSecurely !== $this->wasTokenProvidedSecurely
+        ) {
+            return;
+        }
+        $this->tokenMetadataCache[$this->getTokenMetadataCacheKey()] = $metadata;
+    }
+
     protected function getUsersModel(): UsersModel
     {
         return new UsersModel();

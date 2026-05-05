@@ -818,6 +818,75 @@ class AccessTest extends IntegrationTestCase
         }
     }
 
+    public function testReloadAccessSkipsTokenRowFallbackWhenAuthResultTokenDoesNotMatchSubmittedToken()
+    {
+        $idSite = Fixture::createWebsite('2010-01-02 00:00:00');
+
+        $login = 'scopedmismatchuser';
+        $model = new \Piwik\Plugins\UsersManager\Model();
+        $model->addUser($login, 'pwhash', 'mismatch@example.org', \Piwik\Date::now()->getDatetime());
+        $model->addUserAccess($login, Access\Role\Admin::ID, [$idSite]);
+
+        // The submitted (outer) token is scoped to view; the AuthResult is for a *different* token,
+        // simulating a bulk-API sub-request authenticated against its own token while the outer
+        // request still carries token_auth=outer in $_GET.
+        $outerToken = $model->generateRandomTokenAuth();
+        $model->addTokenAuth($login, $outerToken, 'outer', \Piwik\Date::now()->getDatetime(), null, false, false, 'view');
+
+        $subRequestToken = $model->generateRandomTokenAuth();
+        $model->addTokenAuth($login, $subRequestToken, 'sub-request', \Piwik\Date::now()->getDatetime(), null, false, false, null);
+
+        $_GET['token_auth'] = $outerToken;
+        \Piwik\Container\StaticContainer::getContainer()->set(\Piwik\Request\AuthenticationToken::class, new \Piwik\Request\AuthenticationToken());
+
+        try {
+            $authMock = $this->createPiwikAuthMockInstance();
+            $authMock->expects($this->once())
+                ->method('authenticate')
+                ->willReturn(new AuthResult(AuthResult::SUCCESS, $login, $subRequestToken));
+
+            $access = $this->getAccess();
+            $this->assertTrue($access->reloadAccess($authMock));
+            // The outer token's "view" cap must NOT clamp the sub-request's role; the sub-request
+            // authenticated with an unscoped token, so admin access stays.
+            $this->assertSame('admin', $access->getRoleForSite($idSite));
+        } finally {
+            unset($_GET['token_auth']);
+            \Piwik\Container\StaticContainer::getContainer()->set(\Piwik\Request\AuthenticationToken::class, new \Piwik\Request\AuthenticationToken());
+        }
+    }
+
+    public function testReloadAccessSkipsTokenRowFallbackWhenNoSubmittedToken()
+    {
+        $idSite = Fixture::createWebsite('2010-01-02 00:00:00');
+
+        $login = 'scopednosubmissionuser';
+        $model = new \Piwik\Plugins\UsersManager\Model();
+        $model->addUser($login, 'pwhash', 'nosubmission@example.org', \Piwik\Date::now()->getDatetime());
+        $model->addUserAccess($login, Access\Role\Admin::ID, [$idSite]);
+
+        // No $_GET['token_auth'] — simulates password/session auth where the AuthResult still carries
+        // a tokenAuth (pre-existing session token) but no token was submitted with this request.
+        $token = $model->generateRandomTokenAuth();
+        $model->addTokenAuth($login, $token, 'password-auth', \Piwik\Date::now()->getDatetime(), null, false, false, 'view');
+
+        \Piwik\Container\StaticContainer::getContainer()->set(\Piwik\Request\AuthenticationToken::class, new \Piwik\Request\AuthenticationToken());
+
+        try {
+            $authMock = $this->createPiwikAuthMockInstance();
+            $authMock->expects($this->once())
+                ->method('authenticate')
+                ->willReturn(new AuthResult(AuthResult::SUCCESS, $login, $token));
+
+            $access = $this->getAccess();
+            $this->assertTrue($access->reloadAccess($authMock));
+            // No submitted token => no clamp.
+            $this->assertSame('admin', $access->getRoleForSite($idSite));
+        } finally {
+            \Piwik\Container\StaticContainer::getContainer()->set(\Piwik\Request\AuthenticationToken::class, new \Piwik\Request\AuthenticationToken());
+        }
+    }
+
     public function testReloadAccessSkipsTokenRowFallbackWhenAuthPluginProvidesAuthContext()
     {
         $idSite = Fixture::createWebsite('2010-01-02 00:00:00');
