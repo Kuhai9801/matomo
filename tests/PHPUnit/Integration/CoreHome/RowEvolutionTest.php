@@ -11,6 +11,7 @@ namespace Piwik\Tests\Integration\CoreHome;
 
 use Piwik\DataTable\Map;
 use Piwik\Plugins\CoreHome\DataTableRowAction\RowEvolution;
+use Piwik\Plugins\CoreVisualizations\Visualizations\JqplotGraph\Evolution\Config as EvolutionVizConfig;
 use Piwik\Tests\Framework\Fixture;
 use Piwik\Tests\Framework\TestCase\IntegrationTestCase;
 
@@ -51,6 +52,29 @@ class RowEvolutionTest extends IntegrationTestCase
         $this->assertSame('', $view->requestConfig->request_parameters_to_modify['label']);
         $this->assertSame('@referrer.com', $view->config->export_parameters_to_modify['label']);
         $this->assertFalse($view->config->show_flatten_table_export);
+    }
+
+    public function testGetRowEvolutionGraphDisablesForecastForEvolutionConfig(): void
+    {
+        $rowEvolution = (new \ReflectionClass(RowEvolution::class))->newInstanceWithoutConstructor();
+
+        $this->setProperty($rowEvolution, 'apiMethod', 'Referrers.getWebsites');
+        $this->setProperty($rowEvolution, 'label', '@referrer.com');
+        $this->setProperty($rowEvolution, 'graphType', 'graphEvolution');
+        $this->setProperty($rowEvolution, 'dataTable', new Map());
+        $this->setProperty($rowEvolution, 'availableMetrics', []);
+
+        $view = $rowEvolution->getRowEvolutionGraph();
+
+        // Row evolution popovers run with a label filter, so letting the forecast
+        // precompute fire would trigger 70 days of daily (plus multi-year monthly)
+        // sub-period API fetches per render -- each pulling subtable blobs for the
+        // selected row. Both flags must be set: show_forecast=false hides the
+        // toggle, disable_forecast=true gates the precompute path so the popover
+        // stays cheap even if a saved show_forecast=1 user param re-engages it.
+        $this->assertInstanceOf(EvolutionVizConfig::class, $view->config);
+        $this->assertFalse($view->config->show_forecast);
+        $this->assertTrue($view->config->disable_forecast);
     }
 
     private function setProperty(object $instance, string $propertyName, $value): void
