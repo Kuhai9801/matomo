@@ -123,7 +123,6 @@ describe('ForecastPeriodVisualisation', function () {
         }, scenario);
 
         await page.waitForSelector('.piwik-graph canvas');
-        await page.waitForTimeout(500);
     }
 
     const scenarios = {
