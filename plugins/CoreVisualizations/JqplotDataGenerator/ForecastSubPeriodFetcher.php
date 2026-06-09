@@ -15,12 +15,15 @@ use Piwik\API\Request as ApiRequest;
 use Piwik\Archive\ArchiveState;
 use Piwik\Archive\DataTableFactory;
 use Piwik\Container\StaticContainer;
+use Piwik\CronArchive\SegmentArchiving;
 use Piwik\DataTable;
 use Piwik\Date;
 use Piwik\Log\LoggerInterface;
 use Piwik\Period;
 use Piwik\Plugin\ReportsProvider;
 use Piwik\Plugins\CoreVisualizations\Metrics\Formatter\Numeric;
+use Piwik\Segment;
+use Piwik\Site;
 
 /**
  * Fetches the additional historical data {@see ForecastBuilder} consumes for seasonal
@@ -98,19 +101,35 @@ class ForecastSubPeriodFetcher
     /** @var LoggerInterface */
     private $logger;
 
+    /** @var callable(int, string): (string|null) */
+    private $earliestDataDateResolver;
+
     /**
      * @param callable(string, array<string, mixed>): mixed|null $apiRequestProcessor
      *        Inner-request driver. Receives the API method name and a parameter array, returns
      *        whatever the API method returns (expected to be a {@see DataTable\Map} for
      *        usable responses; anything else is treated as an empty sample set). Null uses
      *        {@see ApiRequest::processRequest()}.
+     * @param callable(int, string): (string|null)|null $earliestDataDateResolver
+     *        Resolves the earliest 'Y-m-d' date the displayed series can have archivable data
+     *        for, given the idSite and raw segment expression. The fan-out windows are clamped
+     *        to this floor so the fetcher never requests sub-periods that predate the site (or
+     *        an auto-archived segment) -- periods that cannot hold data but would otherwise
+     *        cost a skip-path recompute or an on-demand archive on every render. Returns null
+     *        for "no floor". Null uses {@see self::resolveEarliestDataDate()}.
      */
-    public function __construct(?callable $apiRequestProcessor = null, ?LoggerInterface $logger = null)
-    {
+    public function __construct(
+        ?callable $apiRequestProcessor = null,
+        ?LoggerInterface $logger = null,
+        ?callable $earliestDataDateResolver = null
+    ) {
         $this->apiRequestProcessor = $apiRequestProcessor ?? static function (string $apiMethod, array $params) {
             return ApiRequest::processRequest($apiMethod, $params);
         };
         $this->logger = $logger ?? StaticContainer::get(LoggerInterface::class);
+        $this->earliestDataDateResolver = $earliestDataDateResolver ?? function (int $idSite, string $segment): ?string {
+            return $this->resolveEarliestDataDate($idSite, $segment);
+        };
     }
 
     /**
@@ -186,12 +205,27 @@ class ForecastSubPeriodFetcher
                 }
 
                 $gapEndDate = Date::factory($firstDisplayedDate)->subDay(1)->toString('Y-m-d');
+
+                // Clamp the gap window to the earliest date the site (or an auto-archived
+                // segment) can have data. A gap start that predates the site's existence asks
+                // for sub-periods that cannot hold data: each would hit the archiver's skip
+                // path (recomputed, never persisted) or, under browser archiving, trigger an
+                // on-demand archive -- on every render. When the whole gap predates the data,
+                // the displayed range alone supplies the analog walk, so drop the inner request.
+                $gapStartDate = $this->clampStartDate(
+                    $analogWindowStart,
+                    ($this->earliestDataDateResolver)($idSite, $segment)
+                );
+                if (strcmp($gapStartDate, $gapEndDate) > 0) {
+                    return ['daily' => $displayDailyMap, 'monthly' => []];
+                }
+
                 $gapDailyMap = $this->fetchSeries(
                     $apiMethod,
                     $idSite,
                     $segment,
                     'day',
-                    $analogWindowStart,
+                    $gapStartDate,
                     $gapEndDate,
                     $seriesState
                 );
@@ -202,6 +236,8 @@ class ForecastSubPeriodFetcher
                 ];
             }
             if ('week' === $periodLabel || 'month' === $periodLabel) {
+                $earliestDataDate = ($this->earliestDataDateResolver)($idSite, $segment);
+
                 // Daily window sized to what the seasonal-decomposition path actually consumes:
                 // WEEK_DAILY_WINDOW_DAYS for week (in-progress week + same-DoW × 3 history),
                 // MONTH_DAILY_WINDOW_DAYS for month (in-progress month + same-DoW × 4 history).
@@ -210,14 +246,15 @@ class ForecastSubPeriodFetcher
                     : self::MONTH_DAILY_WINDOW_DAYS;
                 $startDate = (Date::factory($endDate))->subDay($dailyWindow)->toString('Y-m-d');
 
-                $dailyMap = $this->fetchSeries(
+                $dailyMap = $this->fetchClampedSeries(
                     $apiMethod,
                     $idSite,
                     $segment,
                     'day',
                     $startDate,
                     $endDate,
-                    $seriesState
+                    $seriesState,
+                    $earliestDataDate
                 );
 
                 // Monthly fan-out on the month target is consumed only by the UP-flavoured
@@ -227,14 +264,15 @@ class ForecastSubPeriodFetcher
                 // graph -- the data would have no consumer.
                 $monthlyMap = [];
                 if ('month' === $periodLabel && $this->seriesStateHasUpSeries($seriesState)) {
-                    $monthlyMap = $this->fetchSeries(
+                    $monthlyMap = $this->fetchClampedSeries(
                         $apiMethod,
                         $idSite,
                         $segment,
                         'month',
                         $this->yearsBack($endDate, self::MONTH_MONTHLY_WINDOW_YEARS),
                         $endDate,
-                        $seriesState
+                        $seriesState,
+                        $earliestDataDate
                     );
                 }
 
@@ -244,10 +282,11 @@ class ForecastSubPeriodFetcher
                 ];
             }
             if ('year' === $periodLabel) {
+                $earliestDataDate = ($this->earliestDataDateResolver)($idSite, $segment);
                 $dailyStart = (Date::factory($endDate))->subDay(self::YEAR_DAILY_WINDOW_DAYS)->toString('Y-m-d');
                 return [
-                    'daily'   => $this->fetchSeries($apiMethod, $idSite, $segment, 'day', $dailyStart, $endDate, $seriesState),
-                    'monthly' => $this->fetchSeries($apiMethod, $idSite, $segment, 'month', $this->yearsBack($endDate, self::YEAR_MONTHLY_WINDOW_YEARS), $endDate, $seriesState),
+                    'daily'   => $this->fetchClampedSeries($apiMethod, $idSite, $segment, 'day', $dailyStart, $endDate, $seriesState, $earliestDataDate),
+                    'monthly' => $this->fetchClampedSeries($apiMethod, $idSite, $segment, 'month', $this->yearsBack($endDate, self::YEAR_MONTHLY_WINDOW_YEARS), $endDate, $seriesState, $earliestDataDate),
                 ];
             }
         } catch (\Throwable $e) {
@@ -358,6 +397,105 @@ class ForecastSubPeriodFetcher
         }
 
         return $this->extractSamples($result, $seriesState, $subPeriod);
+    }
+
+    /**
+     * Fetch a sub-period series after clamping its window start to the earliest date the
+     * site/segment can have data. Returns an empty sample map -- without issuing the inner
+     * request -- when the whole window predates that floor, since every sub-period in it would
+     * be a guaranteed-empty archive lookup.
+     *
+     * @return array<string, array<string, float>>
+     */
+    private function fetchClampedSeries(
+        string $apiMethod,
+        int $idSite,
+        string $segment,
+        string $subPeriod,
+        string $startDate,
+        string $endDate,
+        ForecastSeriesState $seriesState,
+        ?string $earliestDataDate
+    ): array {
+        $clampedStart = $this->clampStartDate($startDate, $earliestDataDate);
+        if (strcmp($clampedStart, $endDate) > 0) {
+            // The entire window falls before the site/segment came into existence. The prior-only
+            // path in ForecastBuilder takes over from the displayed period-level series alone.
+            return [];
+        }
+
+        return $this->fetchSeries($apiMethod, $idSite, $segment, $subPeriod, $clampedStart, $endDate, $seriesState);
+    }
+
+    /**
+     * Raise $startDate to $earliestDataDate when the latter is later. Both are 'Y-m-d' strings,
+     * which compare lexicographically in chronological order, so strcmp() is a date comparison
+     * here. A null floor (resolver opted out) leaves the start untouched.
+     */
+    private function clampStartDate(string $startDate, ?string $earliestDataDate): string
+    {
+        if (null !== $earliestDataDate && strcmp($earliestDataDate, $startDate) > 0) {
+            return $earliestDataDate;
+        }
+
+        return $startDate;
+    }
+
+    /**
+     * Earliest 'Y-m-d' date the displayed series can hold archivable data for. The hard floor is
+     * the site creation date -- no traffic can predate the site. When the request carries an
+     * auto-archived segment, the floor is raised to the segment's re-archive start date, because
+     * core only persists that segment's archives from that date forward (earlier periods return
+     * empty via the archiver's segment skip path anyway, so clamping them out costs no real
+     * samples and removes the synthetic-zero backfill that would otherwise drag the prior down).
+     *
+     * On-demand (non auto-archived) segments are deliberately left at the site floor: core
+     * computes and persists their historic archives on request, so that history is genuine data
+     * the forecast must keep. {@see SegmentArchiving::findSegmentForHash()} returns null for
+     * them, which is exactly the gate.
+     *
+     * Any failure (site removed mid-request, unparseable segment) falls back to null -- no clamp
+     * -- so a resolver hiccup can never silently truncate a legitimate window.
+     */
+    private function resolveEarliestDataDate(int $idSite, string $segment): ?string
+    {
+        try {
+            $earliest = Date::factory(Site::getCreationDateFor($idSite));
+        } catch (\Throwable $e) {
+            return null;
+        }
+
+        if ('' !== $segment) {
+            $segmentStart = $this->resolveSegmentStartDate($segment, $idSite);
+            if (null !== $segmentStart && $segmentStart->isLater($earliest)) {
+                $earliest = $segmentStart;
+            }
+        }
+
+        return $earliest->toString('Y-m-d');
+    }
+
+    /**
+     * Re-archive start date for an auto-archived segment matching $segment on $idSite, or null
+     * when the segment is on-demand (so historic data is real and must not be clamped away) or
+     * cannot be resolved.
+     */
+    private function resolveSegmentStartDate(string $segment, int $idSite): ?Date
+    {
+        try {
+            $segmentObj = new Segment($segment, [$idSite]);
+
+            /** @var SegmentArchiving $segmentArchiving */
+            $segmentArchiving = StaticContainer::get(SegmentArchiving::class);
+            $segmentInfo = $segmentArchiving->findSegmentForHash($segmentObj->getHash(), $idSite);
+            if (null === $segmentInfo) {
+                return null;
+            }
+
+            return $segmentArchiving->getReArchiveSegmentStartDate($segmentInfo);
+        } catch (\Throwable $e) {
+            return null;
+        }
     }
 
     /**
