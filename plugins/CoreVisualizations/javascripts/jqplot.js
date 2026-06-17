@@ -2176,11 +2176,9 @@ RowEvolutionSeriesToggle.prototype.beforeReplot = function () {
                 if (this.renderer.smooth) {
                     gd = this.gridData;
                 }
-                let previousForecastPoint = null;
 
                 for (i = 0; i < gd.length; i++) {
                     if (gd[i][0] === null || gd[i][1] === null) {
-                        previousForecastPoint = null;
                         continue;
                     }
 
@@ -2190,6 +2188,25 @@ RowEvolutionSeriesToggle.prototype.beforeReplot = function () {
                     markerOptions.incompleteFillColor = plot.grid.background;
 
                     this.markerRenderer.draw(gd[i][0], gd[i][1], ctx, markerOptions);
+                }
+            }
+
+            // Draw the forecast indicator independently of the regular markers. The dashed
+            // connector to the forecast value is always rendered when a forecast is available,
+            // so it stays visible even when PlotLinesTweaks hides the per-point markers. The
+            // static diamond is only drawn alongside the regular markers; when markers are
+            // hidden the diamond is reserved for the hover highlight.
+            if (!fill) {
+                if (this.renderer.smooth) {
+                    gd = this.gridData;
+                }
+                let previousForecastPoint = null;
+
+                for (i = 0; i < gd.length; i++) {
+                    if (gd[i][0] === null || gd[i][1] === null) {
+                        previousForecastPoint = null;
+                        continue;
+                    }
 
                     const forecastValue = Array.isArray(opts.forecastData) ? opts.forecastData[i] : null;
 
@@ -2228,13 +2245,15 @@ RowEvolutionSeriesToggle.prototype.beforeReplot = function () {
                             );
                         }
 
-                        drawForecastMarker(
-                            ctx,
-                            forecastX,
-                            forecastY,
-                            forecastColor,
-                            plot.grid.background
-                        );
+                        if (this.markerRenderer.show) {
+                            drawForecastMarker(
+                                ctx,
+                                forecastX,
+                                forecastY,
+                                forecastColor,
+                                plot.grid.background
+                            );
+                        }
 
                         previousForecastPoint = [forecastX, forecastY];
                     } else {
