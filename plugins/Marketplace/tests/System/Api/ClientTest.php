@@ -206,7 +206,7 @@ class ClientTest extends SystemTestCase
         $version = str_replace(array($start, $end), '', $url);
 
         $this->assertNotEmpty($version);
-        $this->assertRegExp('/\d+\.\d+\.\d+/', $version);
+        $this->assertMatchesRegularExpression('/\d+\.\d+\.\d+/', $version);
     }
 
     public function testGetDownloadUrlMissingLicense()
