@@ -290,18 +290,18 @@ var __async = (__this, __arguments, generator) => {
   };
   const _hoisted_1$d = ["title"];
   const _hoisted_2$c = ["onClick"];
-  const _hoisted_3$b = {
+  const _hoisted_3$a = {
     key: 0,
     class: "addCapability"
   };
-  const _hoisted_4$a = {
+  const _hoisted_4$9 = {
     class: "ui-confirm confirmCapabilityToggle modal",
     ref: "confirmCapabilityToggleModal"
   };
   const _hoisted_5$9 = { class: "modal-content" };
   const _hoisted_6$9 = ["innerHTML"];
-  const _hoisted_7$9 = ["innerHTML"];
-  const _hoisted_8$9 = { class: "modal-footer" };
+  const _hoisted_7$8 = ["innerHTML"];
+  const _hoisted_8$7 = { class: "modal-footer" };
   function _sfc_render$d(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_Field = vue.resolveComponent("Field");
     return vue.openBlock(), vue.createElementBlock("div", {
@@ -326,7 +326,7 @@ var __async = (__this, __arguments, generator) => {
           }, null, 8, _hoisted_2$c)) : vue.createCommentVNode("", true)
         ]);
       }), 128)),
-      _ctx.availableCapabilitiesGrouped.length ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_3$b, [
+      _ctx.availableCapabilitiesGrouped.length ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_3$a, [
         _ctx.userRole !== "noaccess" ? (vue.openBlock(), vue.createBlock(_component_Field, {
           key: 0,
           "model-value": _ctx.capabilityToAddId,
@@ -341,7 +341,7 @@ var __async = (__this, __arguments, generator) => {
           options: _ctx.availableCapabilitiesGrouped
         }, null, 8, ["model-value", "disabled", "options"])) : vue.createCommentVNode("", true)
       ])) : vue.createCommentVNode("", true),
-      vue.createElementVNode("div", _hoisted_4$a, [
+      vue.createElementVNode("div", _hoisted_4$9, [
         vue.createElementVNode("div", _hoisted_5$9, [
           _ctx.isAddingCapability ? (vue.openBlock(), vue.createElementBlock("h2", {
             key: 0,
@@ -350,9 +350,9 @@ var __async = (__this, __arguments, generator) => {
           !_ctx.isAddingCapability ? (vue.openBlock(), vue.createElementBlock("h2", {
             key: 1,
             innerHTML: _ctx.$sanitize(_ctx.confirmCapabilityToggleContent)
-          }, null, 8, _hoisted_7$9)) : vue.createCommentVNode("", true)
+          }, null, 8, _hoisted_7$8)) : vue.createCommentVNode("", true)
         ]),
-        vue.createElementVNode("div", _hoisted_8$9, [
+        vue.createElementVNode("div", _hoisted_8$7, [
           vue.createElementVNode("a", {
             href: "",
             class: "modal-action modal-close btn",
@@ -736,20 +736,20 @@ var __async = (__this, __arguments, generator) => {
     class: "row"
   };
   const _hoisted_2$b = { class: "row to-all-websites" };
-  const _hoisted_3$a = { class: "col s12" };
-  const _hoisted_4$9 = { style: { "margin-right": "3.5px" } };
+  const _hoisted_3$9 = { class: "col s12" };
+  const _hoisted_4$8 = { style: { "margin-right": "3.5px" } };
   const _hoisted_5$8 = {
     id: "all-sites-access-select",
     style: { "margin-right": "3.5px" }
   };
   const _hoisted_6$8 = { style: { "margin-top": "18px" } };
-  const _hoisted_7$8 = { class: "filters row" };
-  const _hoisted_8$8 = { class: "col s12 m12 l8" };
-  const _hoisted_9$7 = {
+  const _hoisted_7$7 = { class: "filters row" };
+  const _hoisted_8$6 = { class: "col s12 m12 l8" };
+  const _hoisted_9$6 = {
     class: "input-field bulk-actions",
     style: { "margin-right": "3.5px" }
   };
-  const _hoisted_10$7 = {
+  const _hoisted_10$5 = {
     id: "user-permissions-edit-bulk-actions",
     class: "dropdown-content"
   };
@@ -780,63 +780,53 @@ var __async = (__this, __arguments, generator) => {
   const _hoisted_20$3 = ["textContent"];
   const _hoisted_21$3 = { class: "roles-help-notification" };
   const _hoisted_22$3 = ["innerHTML"];
-  const _hoisted_23$3 = { class: "capabilities-help-notification" };
-  const _hoisted_24$3 = { id: "sitesForPermission" };
-  const _hoisted_25$3 = { class: "select-cell" };
-  const _hoisted_26$3 = { class: "checkbox-container" };
-  const _hoisted_27$3 = ["checked"];
-  const _hoisted_28$3 = /* @__PURE__ */ vue.createElementVNode("span", null, null, -1);
-  const _hoisted_29$2 = { class: "role_header" };
-  const _hoisted_30$2 = ["innerHTML"];
-  const _hoisted_31$2 = /* @__PURE__ */ vue.createElementVNode("span", { class: "icon-help" }, null, -1);
-  const _hoisted_32$2 = [
-    _hoisted_31$2
-  ];
-  const _hoisted_33$2 = { class: "capabilities_header" };
-  const _hoisted_34$2 = ["innerHTML"];
-  const _hoisted_35$2 = /* @__PURE__ */ vue.createElementVNode("span", { class: "icon-help" }, null, -1);
-  const _hoisted_36$2 = [
-    _hoisted_35$2
-  ];
-  const _hoisted_37$1 = {
+  const _hoisted_23$2 = { class: "capabilities-help-notification" };
+  const _hoisted_24$2 = { id: "sitesForPermission" };
+  const _hoisted_25$2 = { class: "select-cell" };
+  const _hoisted_26$2 = { class: "checkbox-container" };
+  const _hoisted_27$2 = ["checked"];
+  const _hoisted_28$2 = { class: "role_header" };
+  const _hoisted_29$2 = ["innerHTML"];
+  const _hoisted_30$2 = { class: "capabilities_header" };
+  const _hoisted_31$2 = ["innerHTML"];
+  const _hoisted_32$2 = {
     key: 0,
     class: "select-all-row"
   };
-  const _hoisted_38$1 = { colspan: "4" };
-  const _hoisted_39$1 = { key: 0 };
-  const _hoisted_40$1 = ["innerHTML"];
-  const _hoisted_41$1 = ["innerHTML"];
-  const _hoisted_42$1 = { key: 1 };
-  const _hoisted_43$1 = ["innerHTML"];
-  const _hoisted_44$1 = ["innerHTML"];
-  const _hoisted_45$1 = { class: "select-cell" };
-  const _hoisted_46$1 = { class: "checkbox-container" };
-  const _hoisted_47$1 = ["id", "onUpdate:modelValue"];
-  const _hoisted_48$1 = /* @__PURE__ */ vue.createElementVNode("span", null, null, -1);
-  const _hoisted_49$1 = { class: "role-select" };
-  const _hoisted_50$1 = {
+  const _hoisted_33$2 = { colspan: "4" };
+  const _hoisted_34$2 = { key: 0 };
+  const _hoisted_35$1 = ["innerHTML"];
+  const _hoisted_36$1 = ["innerHTML"];
+  const _hoisted_37$1 = { key: 1 };
+  const _hoisted_38$1 = ["innerHTML"];
+  const _hoisted_39$1 = ["innerHTML"];
+  const _hoisted_40$1 = { class: "select-cell" };
+  const _hoisted_41$1 = { class: "checkbox-container" };
+  const _hoisted_42$1 = ["id", "onUpdate:modelValue"];
+  const _hoisted_43$1 = { class: "role-select" };
+  const _hoisted_44$1 = {
     class: "delete-access-confirm-modal modal",
     ref: "deleteAccessConfirmModal"
   };
-  const _hoisted_51$1 = { class: "modal-content" };
-  const _hoisted_52$1 = ["innerHTML"];
-  const _hoisted_53$1 = ["innerHTML"];
-  const _hoisted_54$1 = { class: "modal-footer" };
-  const _hoisted_55$1 = {
+  const _hoisted_45$1 = { class: "modal-content" };
+  const _hoisted_46$1 = ["innerHTML"];
+  const _hoisted_47$1 = ["innerHTML"];
+  const _hoisted_48$1 = { class: "modal-footer" };
+  const _hoisted_49$1 = {
     class: "change-access-confirm-modal modal",
     ref: "changeAccessConfirmModal"
   };
-  const _hoisted_56$1 = { class: "modal-content" };
-  const _hoisted_57$1 = ["innerHTML"];
-  const _hoisted_58$1 = ["innerHTML"];
-  const _hoisted_59$1 = { class: "modal-footer" };
-  const _hoisted_60$1 = {
+  const _hoisted_50$1 = { class: "modal-content" };
+  const _hoisted_51$1 = ["innerHTML"];
+  const _hoisted_52$1 = ["innerHTML"];
+  const _hoisted_53$1 = { class: "modal-footer" };
+  const _hoisted_54$1 = {
     class: "confirm-give-access-all-sites modal",
     ref: "confirmGiveAccessAllSitesModal"
   };
-  const _hoisted_61$1 = { class: "modal-content" };
-  const _hoisted_62$1 = ["innerHTML"];
-  const _hoisted_63$1 = { class: "modal-footer" };
+  const _hoisted_55$1 = { class: "modal-content" };
+  const _hoisted_56$1 = ["innerHTML"];
+  const _hoisted_57$1 = { class: "modal-footer" };
   function _sfc_render$c(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_Notification = vue.resolveComponent("Notification");
     const _component_Field = vue.resolveComponent("Field");
@@ -862,9 +852,9 @@ var __async = (__this, __arguments, generator) => {
         ])
       ])) : vue.createCommentVNode("", true),
       vue.createElementVNode("div", _hoisted_2$b, [
-        vue.createElementVNode("div", _hoisted_3$a, [
+        vue.createElementVNode("div", _hoisted_3$9, [
           vue.createElementVNode("div", null, [
-            vue.createElementVNode("span", _hoisted_4$9, vue.toDisplayString(_ctx.translate("UsersManager_GiveAccessToAll")) + ":", 1),
+            vue.createElementVNode("span", _hoisted_4$8, vue.toDisplayString(_ctx.translate("UsersManager_GiveAccessToAll")) + ":", 1),
             vue.createElementVNode("div", _hoisted_5$8, [
               vue.createVNode(_component_Field, {
                 modelValue: _ctx.allWebsitesAccssLevelSet,
@@ -883,9 +873,9 @@ var __async = (__this, __arguments, generator) => {
           vue.createElementVNode("p", _hoisted_6$8, vue.toDisplayString(_ctx.translate("UsersManager_OrManageIndividually")) + ":", 1)
         ])
       ]),
-      vue.createElementVNode("div", _hoisted_7$8, [
-        vue.createElementVNode("div", _hoisted_8$8, [
-          vue.createElementVNode("div", _hoisted_9$7, [
+      vue.createElementVNode("div", _hoisted_7$7, [
+        vue.createElementVNode("div", _hoisted_8$6, [
+          vue.createElementVNode("div", _hoisted_9$6, [
             vue.withDirectives((vue.openBlock(), vue.createElementBlock("a", {
               class: vue.normalizeClass(["dropdown-trigger btn", { disabled: _ctx.isBulkActionsDisabled }]),
               href: "",
@@ -895,7 +885,7 @@ var __async = (__this, __arguments, generator) => {
             ], 2)), [
               [_directive_dropdown_menu, { activates: "#user-permissions-edit-bulk-actions" }]
             ]),
-            vue.createElementVNode("ul", _hoisted_10$7, [
+            vue.createElementVNode("ul", _hoisted_10$5, [
               vue.createElementVNode("li", null, [
                 vue.withDirectives((vue.openBlock(), vue.createElementBlock("a", _hoisted_11$5, [
                   vue.createTextVNode(vue.toDisplayString(_ctx.translate("UsersManager_SetPermission")), 1)
@@ -998,7 +988,7 @@ var __async = (__this, __arguments, generator) => {
           _: 1
         })) : vue.createCommentVNode("", true)
       ]),
-      vue.createElementVNode("div", _hoisted_23$3, [
+      vue.createElementVNode("div", _hoisted_23$2, [
         _ctx.isCapabilitiesHelpToggled ? (vue.openBlock(), vue.createBlock(_component_Notification, {
           key: 0,
           context: "info",
@@ -1011,69 +1001,73 @@ var __async = (__this, __arguments, generator) => {
           _: 1
         })) : vue.createCommentVNode("", true)
       ]),
-      vue.withDirectives((vue.openBlock(), vue.createElementBlock("table", _hoisted_24$3, [
+      vue.withDirectives((vue.openBlock(), vue.createElementBlock("table", _hoisted_24$2, [
         vue.createElementVNode("thead", null, [
           vue.createElementVNode("tr", null, [
-            vue.createElementVNode("th", _hoisted_25$3, [
-              vue.createElementVNode("span", _hoisted_26$3, [
+            vue.createElementVNode("th", _hoisted_25$2, [
+              vue.createElementVNode("span", _hoisted_26$2, [
                 vue.createElementVNode("label", null, [
                   vue.createElementVNode("input", {
                     type: "checkbox",
                     id: "perm_edit_select_all",
                     checked: _ctx.isAllCheckboxSelected,
                     onChange: _cache[8] || (_cache[8] = ($event) => _ctx.onAllCheckboxChange($event))
-                  }, null, 40, _hoisted_27$3),
-                  _hoisted_28$3
+                  }, null, 40, _hoisted_27$2),
+                  _cache[21] || (_cache[21] = vue.createElementVNode("span", null, null, -1))
                 ])
               ])
             ]),
             vue.createElementVNode("th", null, vue.toDisplayString(_ctx.translate("General_Name")), 1),
-            vue.createElementVNode("th", _hoisted_29$2, [
+            vue.createElementVNode("th", _hoisted_28$2, [
               vue.createElementVNode("span", {
                 innerHTML: _ctx.$sanitize(`${_ctx.translate("UsersManager_Role")} `)
-              }, null, 8, _hoisted_30$2),
+              }, null, 8, _hoisted_29$2),
               vue.createElementVNode("a", {
                 href: "",
                 class: vue.normalizeClass(["helpIcon", { sticky: _ctx.isRoleHelpToggled }]),
                 onClick: _cache[9] || (_cache[9] = vue.withModifiers(($event) => _ctx.isRoleHelpToggled = !_ctx.isRoleHelpToggled, ["prevent"]))
-              }, _hoisted_32$2, 2)
+              }, [..._cache[22] || (_cache[22] = [
+                vue.createElementVNode("span", { class: "icon-help" }, null, -1)
+              ])], 2)
             ]),
-            vue.createElementVNode("th", _hoisted_33$2, [
+            vue.createElementVNode("th", _hoisted_30$2, [
               vue.createElementVNode("span", {
                 innerHTML: _ctx.$sanitize(`${_ctx.translate("UsersManager_Capabilities")} `)
-              }, null, 8, _hoisted_34$2),
+              }, null, 8, _hoisted_31$2),
               vue.createElementVNode("a", {
                 href: "",
                 class: vue.normalizeClass(["helpIcon", { sticky: _ctx.isCapabilitiesHelpToggled }]),
                 onClick: _cache[10] || (_cache[10] = vue.withModifiers(($event) => _ctx.isCapabilitiesHelpToggled = !_ctx.isCapabilitiesHelpToggled, ["prevent"]))
-              }, _hoisted_36$2, 2)
+              }, [..._cache[23] || (_cache[23] = [
+                vue.createElementVNode("span", { class: "icon-help" }, null, -1)
+              ])], 2)
             ])
           ])
         ]),
         vue.createElementVNode("tbody", null, [
-          _ctx.isAllCheckboxSelected && _ctx.siteAccess.length < _ctx.totalEntries ? (vue.openBlock(), vue.createElementBlock("tr", _hoisted_37$1, [
-            vue.createElementVNode("td", _hoisted_38$1, [
-              !_ctx.areAllResultsSelected ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_39$1, [
+          _ctx.isAllCheckboxSelected && _ctx.siteAccess.length < _ctx.totalEntries ? (vue.openBlock(), vue.createElementBlock("tr", _hoisted_32$2, [
+            vue.createElementVNode("td", _hoisted_33$2, [
+              !_ctx.areAllResultsSelected ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_34$2, [
                 vue.createElementVNode("span", {
                   innerHTML: _ctx.$sanitize(_ctx.theDisplayedWebsitesAreSelectedText),
                   style: { "margin-right": "3.5px" }
-                }, null, 8, _hoisted_40$1),
+                }, null, 8, _hoisted_35$1),
                 vue.createElementVNode("a", {
                   href: "#",
                   onClick: _cache[11] || (_cache[11] = vue.withModifiers(($event) => _ctx.areAllResultsSelected = !_ctx.areAllResultsSelected, ["prevent"])),
                   innerHTML: _ctx.$sanitize(_ctx.clickToSelectAllText)
-                }, null, 8, _hoisted_41$1)
+                }, null, 8, _hoisted_36$1)
               ])) : vue.createCommentVNode("", true),
-              _ctx.areAllResultsSelected ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_42$1, [
+              _ctx.areAllResultsSelected ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_37$1, [
                 vue.createElementVNode("span", {
                   innerHTML: _ctx.$sanitize(_ctx.allWebsitesAreSelectedText),
                   style: { "margin-right": "3.5px" }
-                }, null, 8, _hoisted_43$1),
+                }, null, 8, _hoisted_38$1),
                 vue.createElementVNode("a", {
                   href: "#",
                   onClick: _cache[12] || (_cache[12] = vue.withModifiers(($event) => _ctx.areAllResultsSelected = !_ctx.areAllResultsSelected, ["prevent"])),
                   innerHTML: _ctx.$sanitize(_ctx.clickToSelectDisplayedWebsitesText)
-                }, null, 8, _hoisted_44$1)
+                }, null, 8, _hoisted_39$1)
               ])) : vue.createCommentVNode("", true)
             ])
           ])) : vue.createCommentVNode("", true),
@@ -1081,18 +1075,18 @@ var __async = (__this, __arguments, generator) => {
             return vue.openBlock(), vue.createElementBlock("tr", {
               key: entry.idsite
             }, [
-              vue.createElementVNode("td", _hoisted_45$1, [
-                vue.createElementVNode("span", _hoisted_46$1, [
+              vue.createElementVNode("td", _hoisted_40$1, [
+                vue.createElementVNode("span", _hoisted_41$1, [
                   vue.createElementVNode("label", null, [
                     vue.withDirectives(vue.createElementVNode("input", {
                       type: "checkbox",
                       id: `perm_edit_select_row${index}`,
                       "onUpdate:modelValue": ($event) => _ctx.selectedRows[index] = $event,
                       onClick: _cache[13] || (_cache[13] = ($event) => _ctx.onRowSelected())
-                    }, null, 8, _hoisted_47$1), [
+                    }, null, 8, _hoisted_42$1), [
                       [vue.vModelCheckbox, _ctx.selectedRows[index]]
                     ]),
-                    _hoisted_48$1
+                    _cache[24] || (_cache[24] = vue.createElementVNode("span", null, null, -1))
                   ])
                 ])
               ]),
@@ -1100,7 +1094,7 @@ var __async = (__this, __arguments, generator) => {
                 vue.createElementVNode("span", null, vue.toDisplayString(entry.site_name), 1)
               ]),
               vue.createElementVNode("td", null, [
-                vue.createElementVNode("div", _hoisted_49$1, [
+                vue.createElementVNode("div", _hoisted_43$1, [
                   vue.createVNode(_component_Field, {
                     "model-value": entry.role,
                     "onUpdate:modelValue": ($event) => {
@@ -1131,18 +1125,18 @@ var __async = (__this, __arguments, generator) => {
       ])), [
         [_directive_content_table]
       ]),
-      vue.createElementVNode("div", _hoisted_50$1, [
-        vue.createElementVNode("div", _hoisted_51$1, [
+      vue.createElementVNode("div", _hoisted_44$1, [
+        vue.createElementVNode("div", _hoisted_45$1, [
           _ctx.siteAccessToChange ? (vue.openBlock(), vue.createElementBlock("h3", {
             key: 0,
             innerHTML: _ctx.$sanitize(_ctx.deletePermConfirmSingleText)
-          }, null, 8, _hoisted_52$1)) : vue.createCommentVNode("", true),
+          }, null, 8, _hoisted_46$1)) : vue.createCommentVNode("", true),
           !_ctx.siteAccessToChange ? (vue.openBlock(), vue.createElementBlock("p", {
             key: 1,
             innerHTML: _ctx.$sanitize(_ctx.deletePermConfirmMultipleText)
-          }, null, 8, _hoisted_53$1)) : vue.createCommentVNode("", true)
+          }, null, 8, _hoisted_47$1)) : vue.createCommentVNode("", true)
         ]),
-        vue.createElementVNode("div", _hoisted_54$1, [
+        vue.createElementVNode("div", _hoisted_48$1, [
           vue.createElementVNode("a", {
             href: "",
             class: "modal-action modal-close btn",
@@ -1159,18 +1153,18 @@ var __async = (__this, __arguments, generator) => {
           }, vue.toDisplayString(_ctx.translate("General_No")), 1)
         ])
       ], 512),
-      vue.createElementVNode("div", _hoisted_55$1, [
-        vue.createElementVNode("div", _hoisted_56$1, [
+      vue.createElementVNode("div", _hoisted_49$1, [
+        vue.createElementVNode("div", _hoisted_50$1, [
           _ctx.siteAccessToChange ? (vue.openBlock(), vue.createElementBlock("h3", {
             key: 0,
             innerHTML: _ctx.$sanitize(_ctx.changePermToSiteConfirmSingleText)
-          }, null, 8, _hoisted_57$1)) : vue.createCommentVNode("", true),
+          }, null, 8, _hoisted_51$1)) : vue.createCommentVNode("", true),
           !_ctx.siteAccessToChange ? (vue.openBlock(), vue.createElementBlock("p", {
             key: 1,
             innerHTML: _ctx.$sanitize(_ctx.changePermToSiteConfirmMultipleText)
-          }, null, 8, _hoisted_58$1)) : vue.createCommentVNode("", true)
+          }, null, 8, _hoisted_52$1)) : vue.createCommentVNode("", true)
         ]),
-        vue.createElementVNode("div", _hoisted_59$1, [
+        vue.createElementVNode("div", _hoisted_53$1, [
           vue.createElementVNode("a", {
             href: "",
             class: "modal-action modal-close btn",
@@ -1188,14 +1182,14 @@ var __async = (__this, __arguments, generator) => {
           }, vue.toDisplayString(_ctx.translate("General_No")), 1)
         ])
       ], 512),
-      vue.createElementVNode("div", _hoisted_60$1, [
-        vue.createElementVNode("div", _hoisted_61$1, [
+      vue.createElementVNode("div", _hoisted_54$1, [
+        vue.createElementVNode("div", _hoisted_55$1, [
           vue.createElementVNode("h3", {
             innerHTML: _ctx.$sanitize(_ctx.changePermToAllSitesConfirmText)
-          }, null, 8, _hoisted_62$1),
+          }, null, 8, _hoisted_56$1),
           vue.createElementVNode("p", null, vue.toDisplayString(_ctx.translate("UsersManager_ChangePermToAllSitesConfirm2")), 1)
         ]),
-        vue.createElementVNode("div", _hoisted_63$1, [
+        vue.createElementVNode("div", _hoisted_57$1, [
           vue.createElementVNode("a", {
             href: "",
             class: "modal-action modal-close btn",
@@ -1444,64 +1438,62 @@ var __async = (__this, __arguments, generator) => {
   });
   const _hoisted_1$b = { class: "row" };
   const _hoisted_2$a = { class: "col m2 entityList" };
-  const _hoisted_3$9 = { class: "listCircle" };
-  const _hoisted_4$8 = {
+  const _hoisted_3$8 = { class: "listCircle" };
+  const _hoisted_4$7 = {
     key: 0,
     class: "icon-warning"
   };
-  const _hoisted_5$7 = /* @__PURE__ */ vue.createElementVNode("div", { class: "save-button-spacer hide-on-small-only" }, null, -1);
-  const _hoisted_6$7 = {
+  const _hoisted_5$7 = {
     href: "",
     class: "entityCancelLink"
   };
-  const _hoisted_7$7 = /* @__PURE__ */ vue.createElementVNode("span", { class: "icon-arrow-left" }, "  ", -1);
-  const _hoisted_8$7 = { class: "visibleTab col m10" };
-  const _hoisted_9$6 = {
+  const _hoisted_6$7 = { class: "visibleTab col m10" };
+  const _hoisted_7$6 = {
     key: 0,
     class: "basic-info-tab"
   };
-  const _hoisted_10$6 = { class: "email-input" };
-  const _hoisted_11$4 = {
+  const _hoisted_8$5 = { class: "email-input" };
+  const _hoisted_9$5 = {
     class: "form-group row",
     style: { "position": "relative" }
   };
-  const _hoisted_12$3 = { class: "col s12 m6 save-button" };
-  const _hoisted_13$3 = {
+  const _hoisted_10$4 = { class: "col s12 m6 save-button" };
+  const _hoisted_11$4 = {
     key: 0,
     class: "resend-notes"
   };
-  const _hoisted_14$3 = ["innerHTML"];
-  const _hoisted_15$3 = { class: "user-permissions" };
-  const _hoisted_16$3 = { key: 0 };
-  const _hoisted_17$2 = {
+  const _hoisted_12$3 = ["innerHTML"];
+  const _hoisted_13$3 = { class: "user-permissions" };
+  const _hoisted_14$3 = { key: 0 };
+  const _hoisted_15$3 = {
     key: 1,
     class: "alert alert-info"
   };
-  const _hoisted_18$2 = {
+  const _hoisted_16$3 = {
     key: 1,
     class: "superuser-access form-group"
   };
-  const _hoisted_19$2 = { key: 0 };
-  const _hoisted_20$2 = { key: 1 };
-  const _hoisted_21$2 = { class: "browser-default" };
+  const _hoisted_17$2 = { key: 0 };
+  const _hoisted_18$2 = { key: 1 };
+  const _hoisted_19$2 = { class: "browser-default" };
+  const _hoisted_20$2 = ["innerHTML"];
+  const _hoisted_21$2 = ["innerHTML"];
   const _hoisted_22$2 = ["innerHTML"];
-  const _hoisted_23$2 = ["innerHTML"];
-  const _hoisted_24$2 = ["innerHTML"];
-  const _hoisted_25$2 = ["innerHTML"];
-  const _hoisted_26$2 = ["innerHTML"];
-  const _hoisted_27$2 = ["innerHTML"];
-  const _hoisted_28$2 = ["innerHTML"];
-  const _hoisted_29$1 = ["innerHTML"];
-  const _hoisted_30$1 = ["title"];
-  const _hoisted_31$1 = { key: 0 };
-  const _hoisted_32$1 = { key: 1 };
-  const _hoisted_33$1 = {
+  const _hoisted_23$1 = ["innerHTML"];
+  const _hoisted_24$1 = ["innerHTML"];
+  const _hoisted_25$1 = ["innerHTML"];
+  const _hoisted_26$1 = ["innerHTML"];
+  const _hoisted_27$1 = ["innerHTML"];
+  const _hoisted_28$1 = ["title"];
+  const _hoisted_29$1 = { key: 0 };
+  const _hoisted_30$1 = { key: 1 };
+  const _hoisted_31$1 = {
     key: 2,
     class: "twofa-reset form-group"
   };
-  const _hoisted_34$1 = { class: "resetTwoFa" };
-  const _hoisted_35$1 = ["innerHTML"];
-  const _hoisted_36$1 = ["innerHTML"];
+  const _hoisted_32$1 = { class: "resetTwoFa" };
+  const _hoisted_33$1 = ["innerHTML"];
+  const _hoisted_34$1 = ["innerHTML"];
   function _sfc_render$b(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_Field = vue.resolveComponent("Field");
     const _component_SaveButton = vue.resolveComponent("SaveButton");
@@ -1518,7 +1510,7 @@ var __async = (__this, __arguments, generator) => {
       default: vue.withCtx(() => [
         vue.withDirectives((vue.openBlock(), vue.createElementBlock("div", _hoisted_1$b, [
           vue.createElementVNode("div", _hoisted_2$a, [
-            vue.createElementVNode("ul", _hoisted_3$9, [
+            vue.createElementVNode("ul", _hoisted_3$8, [
               vue.createElementVNode("li", {
                 class: vue.normalizeClass([{ active: _ctx.activeTab === "basic" }, "menuBasicInfo"])
               }, [
@@ -1535,7 +1527,7 @@ var __async = (__this, __arguments, generator) => {
                   onClick: _cache[1] || (_cache[1] = vue.withModifiers(($event) => _ctx.activeTab = "permissions", ["prevent"])),
                   style: { "margin-right": "3.5px" }
                 }, vue.toDisplayString(_ctx.translate("UsersManager_Permissions")), 1),
-                !_ctx.userHasAccess && !_ctx.theUser.superuser_access ? (vue.openBlock(), vue.createElementBlock("span", _hoisted_4$8)) : vue.createCommentVNode("", true)
+                !_ctx.userHasAccess && !_ctx.theUser.superuser_access ? (vue.openBlock(), vue.createElementBlock("span", _hoisted_4$7)) : vue.createCommentVNode("", true)
               ], 2),
               _ctx.currentUserRole === "superuser" ? (vue.openBlock(), vue.createElementBlock("li", {
                 key: 0,
@@ -1556,19 +1548,19 @@ var __async = (__this, __arguments, generator) => {
                 }, vue.toDisplayString(_ctx.translate("UsersManager_TwoFactorAuthentication")), 1)
               ], 2)) : vue.createCommentVNode("", true)
             ]),
-            _hoisted_5$7,
+            _cache[20] || (_cache[20] = vue.createElementVNode("div", { class: "save-button-spacer hide-on-small-only" }, null, -1)),
             vue.createElementVNode("div", {
               class: "entityCancel",
               onClick: _cache[4] || (_cache[4] = vue.withModifiers(($event) => _ctx.onDoneEditing(), ["prevent"]))
             }, [
-              vue.createElementVNode("a", _hoisted_6$7, [
-                _hoisted_7$7,
+              vue.createElementVNode("a", _hoisted_5$7, [
+                _cache[19] || (_cache[19] = vue.createElementVNode("span", { class: "icon-arrow-left" }, "  ", -1)),
                 vue.createTextVNode(vue.toDisplayString(_ctx.translate("UsersManager_BackToUser")), 1)
               ])
             ])
           ]),
-          vue.createElementVNode("div", _hoisted_8$7, [
-            _ctx.activeTab === "basic" ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_9$6, [
+          vue.createElementVNode("div", _hoisted_6$7, [
+            _ctx.activeTab === "basic" ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_7$6, [
               vue.createElementVNode("div", null, [
                 vue.createVNode(_component_Field, {
                   modelValue: _ctx.theUser.login,
@@ -1601,7 +1593,7 @@ var __async = (__this, __arguments, generator) => {
                   [_directive_auto_clear_password]
                 ]) : vue.createCommentVNode("", true)
               ]),
-              vue.createElementVNode("div", _hoisted_10$6, [
+              vue.createElementVNode("div", _hoisted_8$5, [
                 _ctx.currentUserRole === "superuser" ? (vue.openBlock(), vue.createBlock(_component_Field, {
                   key: 0,
                   modelValue: _ctx.theUser.email,
@@ -1615,8 +1607,8 @@ var __async = (__this, __arguments, generator) => {
                 }, null, 8, ["modelValue", "disabled", "title"])) : vue.createCommentVNode("", true)
               ]),
               vue.createElementVNode("div", null, [
-                vue.createElementVNode("div", _hoisted_11$4, [
-                  vue.createElementVNode("div", _hoisted_12$3, [
+                vue.createElementVNode("div", _hoisted_9$5, [
+                  vue.createElementVNode("div", _hoisted_10$4, [
                     _ctx.currentUserRole === "superuser" ? (vue.openBlock(), vue.createBlock(_component_SaveButton, {
                       key: 0,
                       value: _ctx.translate("UsersManager_SaveBasicInfo"),
@@ -1625,18 +1617,18 @@ var __async = (__this, __arguments, generator) => {
                     }, null, 8, ["value", "saving"])) : vue.createCommentVNode("", true)
                   ])
                 ]),
-                _ctx.user && _ctx.isPending ? (vue.openBlock(), vue.createElementBlock("p", _hoisted_13$3, [
+                _ctx.user && _ctx.isPending ? (vue.openBlock(), vue.createElementBlock("p", _hoisted_11$4, [
                   vue.createTextVNode(vue.toDisplayString(_ctx.translate("UsersManager_InvitationSent")) + " ", 1),
                   vue.createElementVNode("span", {
                     class: "resend-link",
                     onClick: _cache[9] || (_cache[9] = (...args) => _ctx.resendRequestedUser && _ctx.resendRequestedUser(...args)),
                     innerHTML: _ctx.$sanitize(_ctx.translate("UsersManager_ResendInvite") + "/" + _ctx.translate("UsersManager_CopyLink"))
-                  }, null, 8, _hoisted_14$3)
+                  }, null, 8, _hoisted_12$3)
                 ])) : vue.createCommentVNode("", true)
               ])
             ])) : vue.createCommentVNode("", true),
-            vue.withDirectives(vue.createElementVNode("div", _hoisted_15$3, [
-              !_ctx.theUser.superuser_access ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_16$3, [
+            vue.withDirectives(vue.createElementVNode("div", _hoisted_13$3, [
+              !_ctx.theUser.superuser_access ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_14$3, [
                 vue.createVNode(_component_UserPermissionsEdit, {
                   "user-login": _ctx.theUser.login,
                   onUserHasAccessDetected: _cache[10] || (_cache[10] = ($event) => _ctx.userHasAccess = $event.hasAccess),
@@ -1645,44 +1637,44 @@ var __async = (__this, __arguments, generator) => {
                   "filter-access-levels": _ctx.filterAccessLevels
                 }, null, 8, ["user-login", "access-levels", "filter-access-levels"])
               ])) : vue.createCommentVNode("", true),
-              _ctx.theUser.superuser_access ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_17$2, vue.toDisplayString(_ctx.translate("UsersManager_SuperUsersPermissionsNotice")), 1)) : vue.createCommentVNode("", true)
+              _ctx.theUser.superuser_access ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_15$3, vue.toDisplayString(_ctx.translate("UsersManager_SuperUsersPermissionsNotice")), 1)) : vue.createCommentVNode("", true)
             ], 512), [
               [vue.vShow, _ctx.activeTab === "permissions"]
             ]),
-            _ctx.activeTab === "superuser" && _ctx.currentUserRole === "superuser" ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_18$2, [
-              _ctx.isMarketplacePluginEnabled ? (vue.openBlock(), vue.createElementBlock("p", _hoisted_19$2, vue.toDisplayString(_ctx.translate("UsersManager_SuperUserIntro1")), 1)) : (vue.openBlock(), vue.createElementBlock("p", _hoisted_20$2, vue.toDisplayString(_ctx.translate("UsersManager_SuperUserIntro1WithoutMarketplace")), 1)),
+            _ctx.activeTab === "superuser" && _ctx.currentUserRole === "superuser" ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_16$3, [
+              _ctx.isMarketplacePluginEnabled ? (vue.openBlock(), vue.createElementBlock("p", _hoisted_17$2, vue.toDisplayString(_ctx.translate("UsersManager_SuperUserIntro1")), 1)) : (vue.openBlock(), vue.createElementBlock("p", _hoisted_18$2, vue.toDisplayString(_ctx.translate("UsersManager_SuperUserIntro1WithoutMarketplace")), 1)),
               vue.createElementVNode("p", null, [
                 vue.createElementVNode("strong", null, vue.toDisplayString(_ctx.translate("UsersManager_SuperUserIntro2")), 1)
               ]),
               vue.createElementVNode("p", null, [
                 vue.createElementVNode("strong", null, vue.toDisplayString(_ctx.translate("UsersManager_SuperUserIntro3")), 1)
               ]),
-              vue.createElementVNode("ul", _hoisted_21$2, [
+              vue.createElementVNode("ul", _hoisted_19$2, [
                 vue.createElementVNode("li", {
                   innerHTML: _ctx.$sanitize(_ctx.translateSuperUserRiskString("Data"))
-                }, null, 8, _hoisted_22$2),
+                }, null, 8, _hoisted_20$2),
                 vue.createElementVNode("li", {
                   innerHTML: _ctx.$sanitize(_ctx.translateSuperUserRiskString("Security"))
-                }, null, 8, _hoisted_23$2),
+                }, null, 8, _hoisted_21$2),
                 vue.createElementVNode("li", {
                   innerHTML: _ctx.$sanitize(_ctx.translateSuperUserRiskString("Misconfiguration"))
-                }, null, 8, _hoisted_24$2),
+                }, null, 8, _hoisted_22$2),
                 vue.createElementVNode("li", {
                   innerHTML: _ctx.$sanitize(_ctx.translateSuperUserRiskString("UserManagement"))
-                }, null, 8, _hoisted_25$2),
+                }, null, 8, _hoisted_23$1),
                 vue.createElementVNode("li", {
                   innerHTML: _ctx.$sanitize(_ctx.translateSuperUserRiskString("ServiceDisruption"))
-                }, null, 8, _hoisted_26$2),
+                }, null, 8, _hoisted_24$1),
                 _ctx.isPluginsAdminEnabled && _ctx.isMarketplacePluginEnabled ? (vue.openBlock(), vue.createElementBlock("li", {
                   key: 0,
                   innerHTML: _ctx.$sanitize(_ctx.translateSuperUserRiskString("Marketplace"))
-                }, null, 8, _hoisted_27$2)) : vue.createCommentVNode("", true),
+                }, null, 8, _hoisted_25$1)) : vue.createCommentVNode("", true),
                 vue.createElementVNode("li", {
                   innerHTML: _ctx.$sanitize(_ctx.accountabilityRisk)
-                }, null, 8, _hoisted_28$2),
+                }, null, 8, _hoisted_26$1),
                 vue.createElementVNode("li", {
                   innerHTML: _ctx.$sanitize(_ctx.translateSuperUserRiskString("Compliance"))
-                }, null, 8, _hoisted_29$1)
+                }, null, 8, _hoisted_27$1)
               ]),
               vue.createElementVNode("div", {
                 class: vue.normalizeClass({ "disabled": _ctx.isCurrentUser }),
@@ -1699,7 +1691,7 @@ var __async = (__this, __arguments, generator) => {
                   name: "superuser_access",
                   title: _ctx.translate("UsersManager_HasSuperUserAccess")
                 }, null, 8, ["modelValue", "disabled", "title"])
-              ], 10, _hoisted_30$1),
+              ], 10, _hoisted_28$1),
               vue.createVNode(_component_PasswordConfirmation, {
                 modelValue: _ctx.showPasswordConfirmationForSuperUser,
                 "onUpdate:modelValue": _cache[14] || (_cache[14] = ($event) => _ctx.showPasswordConfirmationForSuperUser = $event),
@@ -1708,15 +1700,15 @@ var __async = (__this, __arguments, generator) => {
               }, {
                 default: vue.withCtx(() => [
                   vue.createElementVNode("h2", null, vue.toDisplayString(_ctx.translate("UsersManager_AreYouSure")), 1),
-                  _ctx.theUser.superuser_access ? (vue.openBlock(), vue.createElementBlock("p", _hoisted_31$1, vue.toDisplayString(_ctx.translate("UsersManager_RemoveSuperuserAccessConfirm")), 1)) : vue.createCommentVNode("", true),
-                  !_ctx.theUser.superuser_access ? (vue.openBlock(), vue.createElementBlock("p", _hoisted_32$1, vue.toDisplayString(_ctx.translate("UsersManager_AddSuperuserAccessConfirm")), 1)) : vue.createCommentVNode("", true)
+                  _ctx.theUser.superuser_access ? (vue.openBlock(), vue.createElementBlock("p", _hoisted_29$1, vue.toDisplayString(_ctx.translate("UsersManager_RemoveSuperuserAccessConfirm")), 1)) : vue.createCommentVNode("", true),
+                  !_ctx.theUser.superuser_access ? (vue.openBlock(), vue.createElementBlock("p", _hoisted_30$1, vue.toDisplayString(_ctx.translate("UsersManager_AddSuperuserAccessConfirm")), 1)) : vue.createCommentVNode("", true)
                 ]),
                 _: 1
               }, 8, ["modelValue", "onConfirmed"])
             ])) : vue.createCommentVNode("", true),
-            _ctx.currentUserRole === "superuser" ? vue.withDirectives((vue.openBlock(), vue.createElementBlock("div", _hoisted_33$1, [
+            _ctx.currentUserRole === "superuser" ? vue.withDirectives((vue.openBlock(), vue.createElementBlock("div", _hoisted_31$1, [
               vue.createElementVNode("p", null, vue.toDisplayString(_ctx.translate("UsersManager_ResetTwoFactorAuthenticationInfo")), 1),
-              vue.createElementVNode("div", _hoisted_34$1, [
+              vue.createElementVNode("div", _hoisted_32$1, [
                 vue.createVNode(_component_SaveButton, {
                   saving: _ctx.isResetting2FA,
                   onConfirm: _cache[16] || (_cache[16] = ($event) => _ctx.confirmReset2FA()),
@@ -1748,7 +1740,7 @@ var __async = (__this, __arguments, generator) => {
           default: vue.withCtx(() => [
             vue.createElementVNode("h2", {
               innerHTML: _ctx.$sanitize(_ctx.changePasswordTitle)
-            }, null, 8, _hoisted_35$1),
+            }, null, 8, _hoisted_33$1),
             _ctx.user && _ctx.isPending ? (vue.openBlock(), vue.createBlock(_component_Notification, {
               key: 0,
               context: "info",
@@ -1757,7 +1749,7 @@ var __async = (__this, __arguments, generator) => {
               default: vue.withCtx(() => [
                 vue.createElementVNode("strong", {
                   innerHTML: _ctx.$sanitize(_ctx.translate("UsersManager_InviteEmailChange"))
-                }, null, 8, _hoisted_36$1)
+                }, null, 8, _hoisted_34$1)
               ]),
               _: 1
             })) : vue.createCommentVNode("", true)
@@ -1856,17 +1848,16 @@ var __async = (__this, __arguments, generator) => {
   });
   const _hoisted_1$a = { class: "row" };
   const _hoisted_2$9 = { class: "col s12 m6 invite-notes" };
-  const _hoisted_3$8 = { class: "form-help" };
-  const _hoisted_4$7 = ["innerHTML"];
+  const _hoisted_3$7 = { class: "form-help" };
+  const _hoisted_4$6 = ["innerHTML"];
   const _hoisted_5$6 = { class: "col m10" };
   const _hoisted_6$6 = { class: "email-input" };
-  const _hoisted_7$6 = {
+  const _hoisted_7$5 = {
     class: "form-group row",
     style: { "position": "relative" }
   };
-  const _hoisted_8$6 = { class: "col s12 m6 save-button" };
-  const _hoisted_9$5 = { class: "entityCancel" };
-  const _hoisted_10$5 = /* @__PURE__ */ vue.createElementVNode("span", { class: "icon icon-arrow-left" }, "  ", -1);
+  const _hoisted_8$4 = { class: "col s12 m6 save-button" };
+  const _hoisted_9$4 = { class: "entityCancel" };
   function _sfc_render$a(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_Field = vue.resolveComponent("Field");
     const _component_SaveButton = vue.resolveComponent("SaveButton");
@@ -1880,7 +1871,7 @@ var __async = (__this, __arguments, generator) => {
       default: vue.withCtx(() => [
         vue.withDirectives((vue.openBlock(), vue.createElementBlock("div", _hoisted_1$a, [
           vue.createElementVNode("div", _hoisted_2$9, [
-            vue.createElementVNode("div", _hoisted_3$8, [
+            vue.createElementVNode("div", _hoisted_3$7, [
               vue.createElementVNode("span", {
                 innerHTML: _ctx.$sanitize(
                   _ctx.translate(
@@ -1888,7 +1879,7 @@ var __async = (__this, __arguments, generator) => {
                     [_ctx.inviteTokenExpiryDays]
                   )
                 )
-              }, null, 8, _hoisted_4$7)
+              }, null, 8, _hoisted_4$6)
             ])
           ]),
           vue.createElementVNode("div", _hoisted_5$6, [
@@ -1929,8 +1920,8 @@ var __async = (__this, __arguments, generator) => {
               }, null, 8, ["modelValue", "disabled", "title", "inline-help"])
             ]),
             vue.createElementVNode("div", null, [
-              vue.createElementVNode("div", _hoisted_7$6, [
-                vue.createElementVNode("div", _hoisted_8$6, [
+              vue.createElementVNode("div", _hoisted_7$5, [
+                vue.createElementVNode("div", _hoisted_8$4, [
                   vue.createVNode(_component_SaveButton, {
                     value: _ctx.translate("UsersManager_InviteUser"),
                     disabled: !_ctx.firstSiteAccess || !_ctx.firstSiteAccess.id || !_ctx.theUser.login || !_ctx.theUser.email,
@@ -1945,13 +1936,13 @@ var __async = (__this, __arguments, generator) => {
                 onConfirmed: _ctx.inviteUser
               }, null, 8, ["modelValue", "onConfirmed"])
             ]),
-            vue.createElementVNode("div", _hoisted_9$5, [
+            vue.createElementVNode("div", _hoisted_9$4, [
               vue.createElementVNode("a", {
                 href: "",
                 class: "entityCancelLink",
                 onClick: _cache[5] || (_cache[5] = vue.withModifiers(($event) => _ctx.abort(), ["prevent"]))
               }, [
-                _hoisted_10$5,
+                _cache[6] || (_cache[6] = vue.createElementVNode("span", { class: "icon icon-arrow-left" }, "  ", -1)),
                 vue.createTextVNode(vue.toDisplayString(_ctx.translate("UsersManager_BackToUser")), 1)
               ])
             ])
@@ -2092,18 +2083,14 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
     class: "resend-invite-confirm-modal modal",
     ref: "resendInviteConfirmModal"
   };
-  const _hoisted_2$8 = /* @__PURE__ */ vue.createElementVNode("div", { class: "btn-close modal-close" }, [
-    /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-close" })
-  ], -1);
-  const _hoisted_3$7 = { class: "modal-content" };
-  const _hoisted_4$6 = { class: "modal-title" };
-  const _hoisted_5$5 = ["innerHTML"];
-  const _hoisted_6$5 = { class: "modal-footer" };
-  const _hoisted_7$5 = {
+  const _hoisted_2$8 = { class: "modal-content" };
+  const _hoisted_3$6 = { class: "modal-title" };
+  const _hoisted_4$5 = ["innerHTML"];
+  const _hoisted_5$5 = { class: "modal-footer" };
+  const _hoisted_6$5 = {
     key: 0,
     class: "success-copied"
   };
-  const _hoisted_8$5 = /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-success" }, null, -1);
   function _sfc_render$9(_ctx, _cache, $props, $setup, $data, $options) {
     var _a2, _b;
     const _component_PasswordConfirmation = vue.resolveComponent("PasswordConfirmation");
@@ -2114,9 +2101,11 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
         onConfirmed: _ctx.onInviteAction
       }, null, 8, ["modelValue", "onConfirmed"]),
       vue.createElementVNode("div", _hoisted_1$9, [
-        _hoisted_2$8,
-        vue.createElementVNode("div", _hoisted_3$7, [
-          vue.createElementVNode("h2", _hoisted_4$6, vue.toDisplayString(_ctx.translate("UsersManager_ResendInvite")), 1),
+        _cache[4] || (_cache[4] = vue.createElementVNode("div", { class: "btn-close modal-close" }, [
+          vue.createElementVNode("i", { class: "icon-close" })
+        ], -1)),
+        vue.createElementVNode("div", _hoisted_2$8, [
+          vue.createElementVNode("h2", _hoisted_3$6, vue.toDisplayString(_ctx.translate("UsersManager_ResendInvite")), 1),
           vue.createElementVNode("p", {
             innerHTML: _ctx.$sanitize(_ctx.translate(
               "UsersManager_InviteConfirmMessage",
@@ -2125,14 +2114,14 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
                 `<strong>${(_b = _ctx.user) == null ? void 0 : _b.email}</strong>`
               ]
             ))
-          }, null, 8, _hoisted_5$5),
+          }, null, 8, _hoisted_4$5),
           vue.createElementVNode("p", null, [
             vue.createElementVNode("strong", null, vue.toDisplayString(_ctx.translate("UsersManager_InviteActionNotes", _ctx.inviteTokenExpiryDays)), 1)
           ])
         ]),
-        vue.createElementVNode("div", _hoisted_6$5, [
-          _ctx.copied ? (vue.openBlock(), vue.createElementBlock("span", _hoisted_7$5, [
-            _hoisted_8$5,
+        vue.createElementVNode("div", _hoisted_5$5, [
+          _ctx.copied ? (vue.openBlock(), vue.createElementBlock("span", _hoisted_6$5, [
+            _cache[3] || (_cache[3] = vue.createElementVNode("i", { class: "icon-success" }, null, -1)),
             vue.createTextVNode(" " + vue.toDisplayString(_ctx.translate("UsersManager_LinkCopied")), 1)
           ])) : vue.createCommentVNode("", true),
           vue.createElementVNode("button", {
@@ -2436,8 +2425,8 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
   });
   const _hoisted_1$8 = { class: "userListFilters row" };
   const _hoisted_2$7 = { class: "col s12 m12 l8" };
-  const _hoisted_3$6 = { class: "input-field col s12 m3 l3" };
-  const _hoisted_4$5 = {
+  const _hoisted_3$5 = { class: "input-field col s12 m3 l3" };
+  const _hoisted_4$4 = {
     id: "user-list-bulk-actions",
     class: "dropdown-content"
   };
@@ -2450,9 +2439,9 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
     class: "dropdown-content"
   };
   const _hoisted_7$4 = ["onClick"];
-  const _hoisted_8$4 = { key: 0 };
-  const _hoisted_9$4 = { class: "input-field col s12 m3 l3" };
-  const _hoisted_10$4 = { class: "permissions-for-selector" };
+  const _hoisted_8$3 = { key: 0 };
+  const _hoisted_9$3 = { class: "input-field col s12 m3 l3" };
+  const _hoisted_10$3 = { class: "permissions-for-selector" };
   const _hoisted_11$3 = { class: "input-field col s12 m3 l3" };
   const _hoisted_12$2 = { class: "input-field col s12 m3 l3" };
   const _hoisted_13$2 = {
@@ -2470,93 +2459,71 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
   const _hoisted_19$1 = ["innerHTML"];
   const _hoisted_20$1 = { class: "select-cell" };
   const _hoisted_21$1 = { class: "checkbox-container" };
-  const _hoisted_22$1 = /* @__PURE__ */ vue.createElementVNode("span", null, null, -1);
-  const _hoisted_23$1 = { class: "first" };
-  const _hoisted_24$1 = { class: "role_header" };
-  const _hoisted_25$1 = { style: { "margin-right": "3.5px" } };
-  const _hoisted_26$1 = /* @__PURE__ */ vue.createElementVNode("span", { class: "icon-help" }, null, -1);
-  const _hoisted_27$1 = [
-    _hoisted_26$1
-  ];
-  const _hoisted_28$1 = { key: 0 };
-  const _hoisted_29 = ["title"];
-  const _hoisted_30 = { key: 2 };
-  const _hoisted_31 = { class: "actions-cell-header" };
-  const _hoisted_32 = {
+  const _hoisted_22$1 = { class: "first" };
+  const _hoisted_23 = { class: "role_header" };
+  const _hoisted_24 = { style: { "margin-right": "3.5px" } };
+  const _hoisted_25 = { key: 0 };
+  const _hoisted_26 = ["title"];
+  const _hoisted_27 = { key: 2 };
+  const _hoisted_28 = { class: "actions-cell-header" };
+  const _hoisted_29 = {
     key: 0,
     class: "select-all-row"
   };
-  const _hoisted_33 = { colspan: "8" };
-  const _hoisted_34 = { key: 0 };
+  const _hoisted_30 = { colspan: "8" };
+  const _hoisted_31 = { key: 0 };
+  const _hoisted_32 = ["innerHTML"];
+  const _hoisted_33 = ["innerHTML"];
+  const _hoisted_34 = { key: 1 };
   const _hoisted_35 = ["innerHTML"];
   const _hoisted_36 = ["innerHTML"];
-  const _hoisted_37 = { key: 1 };
-  const _hoisted_38 = ["innerHTML"];
-  const _hoisted_39 = ["innerHTML"];
-  const _hoisted_40 = ["id"];
-  const _hoisted_41 = { class: "select-cell" };
-  const _hoisted_42 = { class: "checkbox-container" };
-  const _hoisted_43 = ["id", "onUpdate:modelValue"];
-  const _hoisted_44 = /* @__PURE__ */ vue.createElementVNode("span", null, null, -1);
-  const _hoisted_45 = { id: "userLogin" };
-  const _hoisted_46 = { class: "access-cell" };
-  const _hoisted_47 = {
+  const _hoisted_37 = ["id"];
+  const _hoisted_38 = { class: "select-cell" };
+  const _hoisted_39 = { class: "checkbox-container" };
+  const _hoisted_40 = ["id", "onUpdate:modelValue"];
+  const _hoisted_41 = { id: "userLogin" };
+  const _hoisted_42 = { class: "access-cell" };
+  const _hoisted_43 = {
     key: 0,
     id: "email"
   };
-  const _hoisted_48 = {
+  const _hoisted_44 = {
     key: 1,
     id: "twofa"
   };
-  const _hoisted_49 = {
+  const _hoisted_45 = {
     key: 0,
     class: "icon-ok"
   };
-  const _hoisted_50 = {
+  const _hoisted_46 = {
     key: 1,
     class: "icon-close"
   };
-  const _hoisted_51 = {
+  const _hoisted_47 = {
     key: 2,
     id: "last_seen"
   };
-  const _hoisted_52 = { id: "status" };
-  const _hoisted_53 = ["title"];
-  const _hoisted_54 = { class: "center actions-cell" };
-  const _hoisted_55 = ["onClick"];
-  const _hoisted_56 = /* @__PURE__ */ vue.createElementVNode("span", { class: "icon-email" }, null, -1);
-  const _hoisted_57 = [
-    _hoisted_56
-  ];
-  const _hoisted_58 = ["onClick"];
-  const _hoisted_59 = /* @__PURE__ */ vue.createElementVNode("span", { class: "icon-edit" }, null, -1);
-  const _hoisted_60 = [
-    _hoisted_59
-  ];
-  const _hoisted_61 = ["title", "onClick"];
-  const _hoisted_62 = /* @__PURE__ */ vue.createElementVNode("span", { class: "icon-sign-out" }, null, -1);
-  const _hoisted_63 = [
-    _hoisted_62
-  ];
-  const _hoisted_64 = ["onClick"];
-  const _hoisted_65 = /* @__PURE__ */ vue.createElementVNode("span", { class: "icon-delete" }, null, -1);
-  const _hoisted_66 = [
-    _hoisted_65
-  ];
-  const _hoisted_67 = ["innerHTML"];
-  const _hoisted_68 = ["innerHTML"];
-  const _hoisted_69 = ["innerHTML"];
-  const _hoisted_70 = ["innerHTML"];
-  const _hoisted_71 = ["innerHTML"];
-  const _hoisted_72 = ["innerHTML"];
-  const _hoisted_73 = {
+  const _hoisted_48 = { id: "status" };
+  const _hoisted_49 = ["title"];
+  const _hoisted_50 = { class: "center actions-cell" };
+  const _hoisted_51 = ["onClick"];
+  const _hoisted_52 = ["onClick"];
+  const _hoisted_53 = ["title", "onClick"];
+  const _hoisted_54 = ["onClick"];
+  const _hoisted_55 = ["innerHTML"];
+  const _hoisted_56 = ["innerHTML"];
+  const _hoisted_57 = ["innerHTML"];
+  const _hoisted_58 = ["innerHTML"];
+  const _hoisted_59 = ["innerHTML"];
+  const _hoisted_60 = ["innerHTML"];
+  const _hoisted_61 = {
     class: "change-user-role-confirm-modal modal",
     ref: "changeUserRoleConfirmModal"
   };
-  const _hoisted_74 = { class: "modal-content" };
-  const _hoisted_75 = ["innerHTML"];
-  const _hoisted_76 = ["innerHTML"];
-  const _hoisted_77 = { class: "modal-footer" };
+  const _hoisted_62 = { class: "modal-content" };
+  const _hoisted_63 = ["innerHTML"];
+  const _hoisted_64 = ["innerHTML"];
+  const _hoisted_65 = { class: "modal-footer" };
   function _sfc_render$8(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_Field = vue.resolveComponent("Field");
     const _component_ActivityIndicator = vue.resolveComponent("ActivityIndicator");
@@ -2570,7 +2537,7 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
     }, [
       vue.createElementVNode("div", _hoisted_1$8, [
         vue.createElementVNode("div", _hoisted_2$7, [
-          vue.createElementVNode("div", _hoisted_3$6, [
+          vue.createElementVNode("div", _hoisted_3$5, [
             vue.withDirectives((vue.openBlock(), vue.createElementBlock("a", {
               class: vue.normalizeClass(["dropdown-trigger btn bulk-actions", { disabled: _ctx.isBulkActionsDisabled }]),
               href: "",
@@ -2580,7 +2547,7 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
             ], 2)), [
               [_directive_dropdown_menu]
             ]),
-            vue.createElementVNode("ul", _hoisted_4$5, [
+            vue.createElementVNode("ul", _hoisted_4$4, [
               vue.createElementVNode("li", null, [
                 vue.withDirectives((vue.openBlock(), vue.createElementBlock("a", _hoisted_5$4, [
                   vue.createTextVNode(vue.toDisplayString(_ctx.translate("UsersManager_SetPermission")), 1)
@@ -2614,7 +2581,7 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
                   }, ["prevent"]))
                 }, vue.toDisplayString(_ctx.translate("UsersManager_RemovePermissions")), 1)
               ]),
-              _ctx.currentUserRole === "superuser" ? (vue.openBlock(), vue.createElementBlock("li", _hoisted_8$4, [
+              _ctx.currentUserRole === "superuser" ? (vue.openBlock(), vue.createElementBlock("li", _hoisted_8$3, [
                 vue.createElementVNode("a", {
                   href: "",
                   onClick: _cache[1] || (_cache[1] = vue.withModifiers(($event) => _ctx.showDeleteConfirm(), ["prevent"]))
@@ -2622,8 +2589,8 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
               ])) : vue.createCommentVNode("", true)
             ])
           ]),
-          vue.createElementVNode("div", _hoisted_9$4, [
-            vue.createElementVNode("div", _hoisted_10$4, [
+          vue.createElementVNode("div", _hoisted_9$3, [
+            vue.createElementVNode("div", _hoisted_10$3, [
               vue.createVNode(_component_Field, {
                 "model-value": _ctx.userTextFilter,
                 "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => _ctx.onUserTextFilterChange($event)),
@@ -2735,18 +2702,20 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
                       }, null, 544), [
                         [vue.vModelCheckbox, _ctx.isAllCheckboxSelected]
                       ]),
-                      _hoisted_22$1
+                      _cache[19] || (_cache[19] = vue.createElementVNode("span", null, null, -1))
                     ])
                   ])
                 ]),
-                vue.createElementVNode("th", _hoisted_23$1, vue.toDisplayString(_ctx.translate("UsersManager_Username")), 1),
-                vue.createElementVNode("th", _hoisted_24$1, [
-                  vue.createElementVNode("span", _hoisted_25$1, vue.toDisplayString(_ctx.translate("UsersManager_RoleFor")), 1),
+                vue.createElementVNode("th", _hoisted_22$1, vue.toDisplayString(_ctx.translate("UsersManager_Username")), 1),
+                vue.createElementVNode("th", _hoisted_23, [
+                  vue.createElementVNode("span", _hoisted_24, vue.toDisplayString(_ctx.translate("UsersManager_RoleFor")), 1),
                   vue.createElementVNode("a", {
                     href: "",
                     class: vue.normalizeClass(["helpIcon", { sticky: _ctx.isRoleHelpToggled }]),
                     onClick: _cache[9] || (_cache[9] = vue.withModifiers(($event) => _ctx.isRoleHelpToggled = !_ctx.isRoleHelpToggled, ["prevent"]))
-                  }, _hoisted_27$1, 2),
+                  }, [..._cache[20] || (_cache[20] = [
+                    vue.createElementVNode("span", { class: "icon-help" }, null, -1)
+                  ])], 2),
                   vue.createElementVNode("div", null, [
                     vue.createVNode(_component_Field, {
                       class: "permissions-for-selector",
@@ -2761,29 +2730,29 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
                     }, null, 8, ["model-value", "ui-control-attributes"])
                   ])
                 ]),
-                _ctx.currentUserRole === "superuser" ? (vue.openBlock(), vue.createElementBlock("th", _hoisted_28$1, vue.toDisplayString(_ctx.translate("UsersManager_Email")), 1)) : vue.createCommentVNode("", true),
+                _ctx.currentUserRole === "superuser" ? (vue.openBlock(), vue.createElementBlock("th", _hoisted_25, vue.toDisplayString(_ctx.translate("UsersManager_Email")), 1)) : vue.createCommentVNode("", true),
                 _ctx.currentUserRole === "superuser" ? (vue.openBlock(), vue.createElementBlock("th", {
                   key: 1,
                   title: _ctx.translate("UsersManager_UsesTwoFactorAuthentication")
-                }, vue.toDisplayString(_ctx.translate("UsersManager_2FA")), 9, _hoisted_29)) : vue.createCommentVNode("", true),
-                _ctx.currentUserRole === "superuser" ? (vue.openBlock(), vue.createElementBlock("th", _hoisted_30, vue.toDisplayString(_ctx.translate("UsersManager_LastSeen")), 1)) : vue.createCommentVNode("", true),
+                }, vue.toDisplayString(_ctx.translate("UsersManager_2FA")), 9, _hoisted_26)) : vue.createCommentVNode("", true),
+                _ctx.currentUserRole === "superuser" ? (vue.openBlock(), vue.createElementBlock("th", _hoisted_27, vue.toDisplayString(_ctx.translate("UsersManager_LastSeen")), 1)) : vue.createCommentVNode("", true),
                 vue.createElementVNode("th", null, vue.toDisplayString(_ctx.translate("UsersManager_Status")), 1),
-                vue.createElementVNode("th", _hoisted_31, [
+                vue.createElementVNode("th", _hoisted_28, [
                   vue.createElementVNode("div", null, vue.toDisplayString(_ctx.translate("General_Actions")), 1)
                 ])
               ])
             ]),
             vue.createElementVNode("tbody", null, [
-              _ctx.isAllCheckboxSelected && _ctx.users.length && _ctx.users.length < _ctx.totalEntries ? (vue.openBlock(), vue.createElementBlock("tr", _hoisted_32, [
-                vue.createElementVNode("td", _hoisted_33, [
-                  !_ctx.areAllResultsSelected ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_34, [
+              _ctx.isAllCheckboxSelected && _ctx.users.length && _ctx.users.length < _ctx.totalEntries ? (vue.openBlock(), vue.createElementBlock("tr", _hoisted_29, [
+                vue.createElementVNode("td", _hoisted_30, [
+                  !_ctx.areAllResultsSelected ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_31, [
                     vue.createElementVNode("span", {
                       innerHTML: _ctx.$sanitize(_ctx.translate(
                         "UsersManager_TheDisplayedUsersAreSelected",
                         `<strong>${_ctx.users.length}</strong>`
                       )),
                       style: { "margin-right": "3.5px" }
-                    }, null, 8, _hoisted_35),
+                    }, null, 8, _hoisted_32),
                     vue.createElementVNode("a", {
                       class: "toggle-select-all-in-search",
                       href: "#",
@@ -2792,16 +2761,16 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
                         "UsersManager_ClickToSelectAll",
                         `<strong>${_ctx.totalEntries}</strong>`
                       ))
-                    }, null, 8, _hoisted_36)
+                    }, null, 8, _hoisted_33)
                   ])) : vue.createCommentVNode("", true),
-                  _ctx.areAllResultsSelected ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_37, [
+                  _ctx.areAllResultsSelected ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_34, [
                     vue.createElementVNode("span", {
                       innerHTML: _ctx.$sanitize(_ctx.translate(
                         "UsersManager_AllUsersAreSelected",
                         `<strong>${_ctx.totalEntries}</strong>`
                       )),
                       style: { "margin-right": "3.5px" }
-                    }, null, 8, _hoisted_38),
+                    }, null, 8, _hoisted_35),
                     vue.createElementVNode("a", {
                       class: "toggle-select-all-in-search",
                       href: "#",
@@ -2810,7 +2779,7 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
                         "UsersManager_ClickToSelectDisplayedUsers",
                         `<strong>${_ctx.users.length}</strong>`
                       ))
-                    }, null, 8, _hoisted_39)
+                    }, null, 8, _hoisted_36)
                   ])) : vue.createCommentVNode("", true)
                 ])
               ])) : vue.createCommentVNode("", true),
@@ -2819,23 +2788,23 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
                   id: `row${index}`,
                   key: user.login
                 }, [
-                  vue.createElementVNode("td", _hoisted_41, [
-                    vue.createElementVNode("span", _hoisted_42, [
+                  vue.createElementVNode("td", _hoisted_38, [
+                    vue.createElementVNode("span", _hoisted_39, [
                       vue.createElementVNode("label", null, [
                         vue.withDirectives(vue.createElementVNode("input", {
                           type: "checkbox",
                           id: `paged_users_select_row${index}`,
                           "onUpdate:modelValue": ($event) => _ctx.selectedRows[index] = $event,
                           onClick: _cache[13] || (_cache[13] = ($event) => _ctx.onRowSelected())
-                        }, null, 8, _hoisted_43), [
+                        }, null, 8, _hoisted_40), [
                           [vue.vModelCheckbox, _ctx.selectedRows[index]]
                         ]),
-                        _hoisted_44
+                        _cache[21] || (_cache[21] = vue.createElementVNode("span", null, null, -1))
                       ])
                     ])
                   ]),
-                  vue.createElementVNode("td", _hoisted_45, vue.toDisplayString(user.login), 1),
-                  vue.createElementVNode("td", _hoisted_46, [
+                  vue.createElementVNode("td", _hoisted_41, vue.toDisplayString(user.login), 1),
+                  vue.createElementVNode("td", _hoisted_42, [
                     vue.createElementVNode("div", null, [
                       vue.createVNode(_component_Field, {
                         "model-value": user.role,
@@ -2852,19 +2821,19 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
                       }, null, 8, ["model-value", "onUpdate:modelValue", "disabled", "options"])
                     ])
                   ]),
-                  _ctx.currentUserRole === "superuser" ? (vue.openBlock(), vue.createElementBlock("td", _hoisted_47, vue.toDisplayString(user.email), 1)) : vue.createCommentVNode("", true),
-                  _ctx.currentUserRole === "superuser" ? (vue.openBlock(), vue.createElementBlock("td", _hoisted_48, [
-                    user.uses_2fa ? (vue.openBlock(), vue.createElementBlock("span", _hoisted_49)) : vue.createCommentVNode("", true),
-                    !user.uses_2fa ? (vue.openBlock(), vue.createElementBlock("span", _hoisted_50)) : vue.createCommentVNode("", true)
+                  _ctx.currentUserRole === "superuser" ? (vue.openBlock(), vue.createElementBlock("td", _hoisted_43, vue.toDisplayString(user.email), 1)) : vue.createCommentVNode("", true),
+                  _ctx.currentUserRole === "superuser" ? (vue.openBlock(), vue.createElementBlock("td", _hoisted_44, [
+                    user.uses_2fa ? (vue.openBlock(), vue.createElementBlock("span", _hoisted_45)) : vue.createCommentVNode("", true),
+                    !user.uses_2fa ? (vue.openBlock(), vue.createElementBlock("span", _hoisted_46)) : vue.createCommentVNode("", true)
                   ])) : vue.createCommentVNode("", true),
-                  _ctx.currentUserRole === "superuser" ? (vue.openBlock(), vue.createElementBlock("td", _hoisted_51, vue.toDisplayString(user.last_seen_ago ? _ctx.translate("UsersManager_XAgo", user.last_seen_ago) : "-"), 1)) : vue.createCommentVNode("", true),
-                  vue.createElementVNode("td", _hoisted_52, [
+                  _ctx.currentUserRole === "superuser" ? (vue.openBlock(), vue.createElementBlock("td", _hoisted_47, vue.toDisplayString(user.last_seen_ago ? _ctx.translate("UsersManager_XAgo", user.last_seen_ago) : "-"), 1)) : vue.createCommentVNode("", true),
+                  vue.createElementVNode("td", _hoisted_48, [
                     vue.createElementVNode("span", {
                       class: vue.normalizeClass(Number.isInteger(user.invite_status) ? "pending" : user.invite_status),
                       title: user.invite_status === "expired" ? _ctx.translate("UsersManager_ExpiredInviteAutomaticallyRemoved", "3") : ""
-                    }, vue.toDisplayString(_ctx.getInviteStatus(user.invite_status)), 11, _hoisted_53)
+                    }, vue.toDisplayString(_ctx.getInviteStatus(user.invite_status)), 11, _hoisted_49)
                   ]),
-                  vue.createElementVNode("td", _hoisted_54, [
+                  vue.createElementVNode("td", _hoisted_50, [
                     (_ctx.currentUserRole === "superuser" || _ctx.currentUserRole === "admin" && user.invited_by === _ctx.currentUserLogin) && user.invite_status !== "active" ? (vue.openBlock(), vue.createElementBlock("button", {
                       key: 0,
                       class: "resend table-action",
@@ -2873,13 +2842,17 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
                         _ctx.userToChange = user;
                         _ctx.resendRequestedUser();
                       }
-                    }, _hoisted_57, 8, _hoisted_55)) : vue.createCommentVNode("", true),
+                    }, [..._cache[22] || (_cache[22] = [
+                      vue.createElementVNode("span", { class: "icon-email" }, null, -1)
+                    ])], 8, _hoisted_51)) : vue.createCommentVNode("", true),
                     user.login !== "anonymous" ? (vue.openBlock(), vue.createElementBlock("button", {
                       key: 1,
                       class: "edituser table-action",
                       title: "Edit",
                       onClick: ($event) => _ctx.$emit("editUser", { user })
-                    }, _hoisted_60, 8, _hoisted_58)) : vue.createCommentVNode("", true),
+                    }, [..._cache[23] || (_cache[23] = [
+                      vue.createElementVNode("span", { class: "icon-edit" }, null, -1)
+                    ])], 8, _hoisted_52)) : vue.createCommentVNode("", true),
                     _ctx.currentUserRole === "superuser" && user.login !== "anonymous" && user.invite_status === "active" ? (vue.openBlock(), vue.createElementBlock("button", {
                       key: 2,
                       class: "signoutuser table-action",
@@ -2888,7 +2861,9 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
                         _ctx.userToChange = user;
                         _ctx.showSignOutConfirm();
                       }
-                    }, _hoisted_63, 8, _hoisted_61)) : vue.createCommentVNode("", true),
+                    }, [..._cache[24] || (_cache[24] = [
+                      vue.createElementVNode("span", { class: "icon-sign-out" }, null, -1)
+                    ])], 8, _hoisted_53)) : vue.createCommentVNode("", true),
                     (_ctx.currentUserRole === "superuser" || _ctx.currentUserRole === "admin" && user.invited_by === _ctx.currentUserLogin && user.invite_status !== "active") && user.login !== "anonymous" ? (vue.openBlock(), vue.createElementBlock("button", {
                       key: 3,
                       class: "deleteuser table-action",
@@ -2897,9 +2872,11 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
                         _ctx.userToChange = user;
                         _ctx.showDeleteConfirm();
                       }
-                    }, _hoisted_66, 8, _hoisted_64)) : vue.createCommentVNode("", true)
+                    }, [..._cache[25] || (_cache[25] = [
+                      vue.createElementVNode("span", { class: "icon-delete" }, null, -1)
+                    ])], 8, _hoisted_54)) : vue.createCommentVNode("", true)
                   ])
-                ], 8, _hoisted_40);
+                ], 8, _hoisted_37);
               }), 128))
             ])
           ], 2)), [
@@ -2921,14 +2898,14 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
               "UsersManager_DeleteUserConfirmSingle",
               `<strong>${_ctx.userToChange.login}</strong>`
             ))
-          }, null, 8, _hoisted_67)) : vue.createCommentVNode("", true),
+          }, null, 8, _hoisted_55)) : vue.createCommentVNode("", true),
           !_ctx.userToChange ? (vue.openBlock(), vue.createElementBlock("h2", {
             key: 1,
             innerHTML: _ctx.$sanitize(_ctx.translate(
               "UsersManager_DeleteUserConfirmMultiple",
               `<strong>${_ctx.affectedUsersCount}</strong>`
             ))
-          }, null, 8, _hoisted_68)) : vue.createCommentVNode("", true)
+          }, null, 8, _hoisted_56)) : vue.createCommentVNode("", true)
         ]),
         _: 1
       }, 8, ["modelValue", "onConfirmed", "onAborted"]),
@@ -2942,11 +2919,11 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
           _ctx.userToChange ? (vue.openBlock(), vue.createElementBlock("h3", {
             key: 0,
             innerHTML: _ctx.$sanitize(_ctx.deleteUserPermConfirmSingleText)
-          }, null, 8, _hoisted_69)) : vue.createCommentVNode("", true),
+          }, null, 8, _hoisted_57)) : vue.createCommentVNode("", true),
           !_ctx.userToChange ? (vue.openBlock(), vue.createElementBlock("h3", {
             key: 1,
             innerHTML: _ctx.$sanitize(_ctx.deleteUserPermConfirmMultipleText)
-          }, null, 8, _hoisted_70)) : vue.createCommentVNode("", true),
+          }, null, 8, _hoisted_58)) : vue.createCommentVNode("", true),
           vue.createElementVNode("h3", null, [
             vue.createElementVNode("em", null, [
               vue.createTextVNode(vue.toDisplayString(_ctx.translate("General_Note")) + ": ", 1),
@@ -2956,7 +2933,7 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
                   "anonymous",
                   _ctx.getRoleDisplay(_ctx.roleToChangeTo)
                 ))
-              }, null, 8, _hoisted_71)
+              }, null, 8, _hoisted_59)
             ])
           ])
         ]),
@@ -2975,22 +2952,22 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
               "UsersManager_SignOutUserConfirm",
               `<strong>${_ctx.userToChange.login}</strong>`
             ))
-          }, null, 8, _hoisted_72)) : vue.createCommentVNode("", true)
+          }, null, 8, _hoisted_60)) : vue.createCommentVNode("", true)
         ]),
         _: 1
       }, 8, ["modelValue", "onConfirmed", "onAborted"]),
-      vue.createElementVNode("div", _hoisted_73, [
-        vue.createElementVNode("div", _hoisted_74, [
+      vue.createElementVNode("div", _hoisted_61, [
+        vue.createElementVNode("div", _hoisted_62, [
           _ctx.userToChange ? (vue.openBlock(), vue.createElementBlock("h3", {
             key: 0,
             innerHTML: _ctx.$sanitize(_ctx.deleteUserPermConfirmSingleText)
-          }, null, 8, _hoisted_75)) : vue.createCommentVNode("", true),
+          }, null, 8, _hoisted_63)) : vue.createCommentVNode("", true),
           !_ctx.userToChange ? (vue.openBlock(), vue.createElementBlock("p", {
             key: 1,
             innerHTML: _ctx.$sanitize(_ctx.deleteUserPermConfirmMultipleText)
-          }, null, 8, _hoisted_76)) : vue.createCommentVNode("", true)
+          }, null, 8, _hoisted_64)) : vue.createCommentVNode("", true)
         ]),
-        vue.createElementVNode("div", _hoisted_77, [
+        vue.createElementVNode("div", _hoisted_65, [
           vue.createElementVNode("a", {
             href: "",
             class: "modal-action modal-close btn",
@@ -3289,8 +3266,8 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
   });
   const _hoisted_1$7 = { class: "usersManager" };
   const _hoisted_2$6 = { key: 0 };
-  const _hoisted_3$5 = { key: 1 };
-  const _hoisted_4$4 = { class: "row add-user-container" };
+  const _hoisted_3$4 = { key: 1 };
+  const _hoisted_4$3 = { class: "row add-user-container" };
   const _hoisted_5$3 = { class: "col s12" };
   const _hoisted_6$3 = {
     class: "input-field",
@@ -3300,12 +3277,12 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
     key: 0,
     class: "input-field"
   };
-  const _hoisted_8$3 = { key: 0 };
-  const _hoisted_9$3 = {
+  const _hoisted_8$2 = { key: 0 };
+  const _hoisted_9$2 = {
     class: "add-existing-user-modal modal",
     ref: "addExistingUserModal"
   };
-  const _hoisted_10$3 = { class: "modal-content" };
+  const _hoisted_10$2 = { class: "modal-content" };
   const _hoisted_11$2 = { class: "modal-footer" };
   function _sfc_render$7(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_EnrichedHeadline = vue.resolveComponent("EnrichedHeadline");
@@ -3329,8 +3306,8 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
             }, 8, ["help-url"])
           ]),
           _ctx.currentUserRole === "superuser" ? (vue.openBlock(), vue.createElementBlock("p", _hoisted_2$6, vue.toDisplayString(_ctx.translate("UsersManager_ManageUsersDesc")), 1)) : vue.createCommentVNode("", true),
-          _ctx.currentUserRole === "admin" ? (vue.openBlock(), vue.createElementBlock("p", _hoisted_3$5, vue.toDisplayString(_ctx.translate("UsersManager_ManageUsersAdminDesc")), 1)) : vue.createCommentVNode("", true),
-          vue.createElementVNode("div", _hoisted_4$4, [
+          _ctx.currentUserRole === "admin" ? (vue.openBlock(), vue.createElementBlock("p", _hoisted_3$4, vue.toDisplayString(_ctx.translate("UsersManager_ManageUsersAdminDesc")), 1)) : vue.createCommentVNode("", true),
+          vue.createElementVNode("div", _hoisted_4$3, [
             vue.createElementVNode("div", _hoisted_5$3, [
               vue.createElementVNode("div", _hoisted_6$3, [
                 vue.createElementVNode("a", {
@@ -3389,7 +3366,7 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
         "invite-token-expiry-days": _ctx.inviteTokenExpiryDays,
         onClose: _cache[10] || (_cache[10] = ($event) => _ctx.triggerResendInviteForUser = null)
       }, null, 40, ["user", "invite-token-expiry-days"])),
-      _ctx.isEditing ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_8$3, [
+      _ctx.isEditing ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_8$2, [
         vue.createVNode(_component_UserEditForm, {
           onDone: _cache[11] || (_cache[11] = ($event) => _ctx.onDoneEditing($event.isUserModified)),
           user: _ctx.userBeingEdited,
@@ -3402,8 +3379,8 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
           onUpdated: _cache[13] || (_cache[13] = ($event) => _ctx.userBeingEdited = $event.user)
         }, null, 8, ["user", "current-user-role", "access-levels", "filter-access-levels", "activated-plugins", "password-strength-validation-rules"])
       ])) : vue.createCommentVNode("", true),
-      vue.createElementVNode("div", _hoisted_9$3, [
-        vue.createElementVNode("div", _hoisted_10$3, [
+      vue.createElementVNode("div", _hoisted_9$2, [
+        vue.createElementVNode("div", _hoisted_10$2, [
           vue.createElementVNode("h3", null, vue.toDisplayString(_ctx.translate("UsersManager_AddExistingUser")), 1),
           vue.createElementVNode("p", null, vue.toDisplayString(_ctx.translate("UsersManager_EnterUsernameOrEmail")) + ":", 1),
           vue.createElementVNode("div", null, [
@@ -3806,20 +3783,17 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
   });
   const _hoisted_1$4 = { id: "userSettingsTable" };
   const _hoisted_2$4 = { key: 0 };
-  const _hoisted_3$4 = {
+  const _hoisted_3$3 = {
     id: "languageHelp",
     class: "inline-help-node"
   };
-  const _hoisted_4$3 = ["href"];
+  const _hoisted_4$2 = ["href"];
   const _hoisted_5$2 = { class: "sites_autocomplete" };
   const _hoisted_6$2 = {
     id: "themeModeHelp",
     class: "inline-help-node"
   };
-  const _hoisted_7$2 = /* @__PURE__ */ vue.createElementVNode("br", null, null, -1);
-  const _hoisted_8$2 = ["innerHTML"];
-  const _hoisted_9$2 = /* @__PURE__ */ vue.createElementVNode("br", null, null, -1);
-  const _hoisted_10$2 = /* @__PURE__ */ vue.createElementVNode("br", null, null, -1);
+  const _hoisted_7$2 = ["innerHTML"];
   function _sfc_render$4(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_Field = vue.resolveComponent("Field");
     const _component_SiteSelector = vue.resolveComponent("SiteSelector");
@@ -3858,12 +3832,12 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
                 title: _ctx.translate("UsersManager_Email")
               }, null, 8, ["model-value", "title"])
             ])) : vue.createCommentVNode("", true),
-            vue.createElementVNode("div", _hoisted_3$4, [
+            vue.createElementVNode("div", _hoisted_3$3, [
               vue.createElementVNode("a", {
                 target: "_blank",
                 rel: "noreferrer noopener",
                 href: _ctx.externalRawLink("https://matomo.org/translations/")
-              }, vue.toDisplayString(_ctx.translate("LanguagesManager_AboutPiwikTranslations")), 9, _hoisted_4$3)
+              }, vue.toDisplayString(_ctx.translate("LanguagesManager_AboutPiwikTranslations")), 9, _hoisted_4$2)
             ]),
             vue.createElementVNode("div", null, [
               vue.createVNode(_component_Field, {
@@ -3952,15 +3926,15 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
       }, 8, ["content-title"]),
       vue.createElementVNode("div", _hoisted_6$2, [
         vue.createElementVNode("strong", null, vue.toDisplayString(_ctx.translate("UsersManager_ThemeModeHelp1")), 1),
-        _hoisted_7$2,
+        _cache[11] || (_cache[11] = vue.createElementVNode("br", null, null, -1)),
         vue.createElementVNode("span", {
           innerHTML: _ctx.$sanitize(_ctx.translate(
             "UsersManager_ThemeModeHelp2",
             `<em>${_ctx.translate("UsersManager_ThemeModeMatchBrowser")}</em>`
           ))
-        }, null, 8, _hoisted_8$2),
-        _hoisted_9$2,
-        _hoisted_10$2,
+        }, null, 8, _hoisted_7$2),
+        _cache[12] || (_cache[12] = vue.createElementVNode("br", null, null, -1)),
+        _cache[13] || (_cache[13] = vue.createElementVNode("br", null, null, -1)),
         vue.createTextVNode(" " + vue.toDisplayString(_ctx.translate("UsersManager_ThemeModeHelp3")), 1)
       ])
     ], 64);
@@ -4054,11 +4028,11 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
     key: 1,
     class: "alert alert-danger"
   };
-  const _hoisted_3$3 = {
+  const _hoisted_3$2 = {
     key: 2,
     class: "alert alert-danger"
   };
-  const _hoisted_4$2 = ["action"];
+  const _hoisted_4$1 = ["action"];
   const _hoisted_5$1 = { style: { "margin-bottom": "2rem" } };
   const _hoisted_6$1 = { class: "form-group row tokenExpireDateTime" };
   const _hoisted_7$1 = { class: "col s12 m6" };
@@ -4084,7 +4058,7 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
         vue.createElementVNode("p", null, vue.toDisplayString(_ctx.translate("UsersManager_TokenAuthIntro")), 1),
         _ctx.noDescription || _ctx.invalidExpireDate ? (vue.openBlock(), vue.createElementBlock("br", _hoisted_1$3)) : vue.createCommentVNode("", true),
         _ctx.noDescription ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_2$3, vue.toDisplayString(_ctx.translate("General_Description")) + ": " + vue.toDisplayString(_ctx.translate("General_ValidatorErrorEmptyValue")), 1)) : vue.createCommentVNode("", true),
-        _ctx.invalidExpireDate ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_3$3, vue.toDisplayString(_ctx.translate("UsersManager_TokenExpireDate")) + ": " + vue.toDisplayString(_ctx.translate("UsersManager_InvalidTokenExpireDateFormat")), 1)) : vue.createCommentVNode("", true),
+        _ctx.invalidExpireDate ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_3$2, vue.toDisplayString(_ctx.translate("UsersManager_TokenExpireDate")) + ": " + vue.toDisplayString(_ctx.translate("UsersManager_InvalidTokenExpireDateFormat")), 1)) : vue.createCommentVNode("", true),
         vue.createElementVNode("form", {
           action: _ctx.addNewTokenFormUrl,
           method: "post",
@@ -4164,7 +4138,7 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
           vue.createElementVNode("span", {
             innerHTML: _ctx.$sanitize(_ctx.cancelLink)
           }, null, 8, _hoisted_16$1)
-        ], 8, _hoisted_4$2)
+        ], 8, _hoisted_4$1)
       ]),
       _: 1
     }, 8, ["content-title"]);
@@ -4192,12 +4166,11 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
       }
     }
   });
-  const _hoisted_1$2 = /* @__PURE__ */ vue.createElementVNode("br", null, null, -1);
-  const _hoisted_2$2 = {
+  const _hoisted_1$2 = {
     style: { "font-size": "40px" },
     class: "generatedTokenAuth"
   };
-  const _hoisted_3$2 = ["href"];
+  const _hoisted_2$2 = ["href"];
   function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_ContentBlock = vue.resolveComponent("ContentBlock");
     const _directive_copy_to_clipboard = vue.resolveDirective("copy-to-clipboard");
@@ -4207,11 +4180,11 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
       default: vue.withCtx(() => [
         vue.createElementVNode("p", null, [
           vue.createTextVNode(vue.toDisplayString(_ctx.translate("UsersManager_PleaseStoreToken")) + " ", 1),
-          _hoisted_1$2,
+          _cache[0] || (_cache[0] = vue.createElementVNode("br", null, null, -1)),
           vue.createTextVNode(" " + vue.toDisplayString(_ctx.translate("UsersManager_DoNotStoreToken")), 1)
         ]),
         vue.createElementVNode("div", null, [
-          vue.withDirectives((vue.openBlock(), vue.createElementBlock("pre", _hoisted_2$2, [
+          vue.withDirectives((vue.openBlock(), vue.createElementBlock("pre", _hoisted_1$2, [
             vue.createElementVNode("code", null, vue.toDisplayString(_ctx.generatedToken), 1)
           ])), [
             [_directive_copy_to_clipboard, {}]
@@ -4221,7 +4194,7 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
           href: _ctx.userSecurityLink,
           class: "btn",
           style: { "height": "auto" }
-        }, vue.toDisplayString(_ctx.translate("UsersManager_ConfirmTokenCopied")) + " " + vue.toDisplayString(_ctx.translate("UsersManager_GoBackSecurityPage")), 9, _hoisted_3$2)
+        }, vue.toDisplayString(_ctx.translate("UsersManager_ConfirmTokenCopied")) + " " + vue.toDisplayString(_ctx.translate("UsersManager_GoBackSecurityPage")), 9, _hoisted_2$2)
       ]),
       _: 1
     }, 8, ["content-title"]);
@@ -4341,43 +4314,28 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
   const _hoisted_1$1 = ["action"];
   const _hoisted_2$1 = ["value"];
   const _hoisted_3$1 = { key: 0 };
-  const _hoisted_4$1 = ["innerHTML"];
+  const _hoisted_4 = ["innerHTML"];
   const _hoisted_5 = ["value", "disabled"];
   const _hoisted_6 = { key: 1 };
   const _hoisted_7 = { class: "alert alert-danger" };
   const _hoisted_8 = ["innerHTML"];
   const _hoisted_9 = { ref: "afterPassword" };
-  const _hoisted_10 = /* @__PURE__ */ vue.createElementVNode("a", {
-    name: "authtokens",
-    id: "authtokens"
-  }, null, -1);
-  const _hoisted_11 = { class: "listAuthTokens" };
-  const _hoisted_12 = { key: 0 };
-  const _hoisted_13 = ["innerHTML"];
-  const _hoisted_14 = { class: "creationDate" };
-  const _hoisted_15 = ["action"];
+  const _hoisted_10 = { class: "listAuthTokens" };
+  const _hoisted_11 = { key: 0 };
+  const _hoisted_12 = ["innerHTML"];
+  const _hoisted_13 = { class: "creationDate" };
+  const _hoisted_14 = ["action"];
+  const _hoisted_15 = ["value"];
   const _hoisted_16 = ["value"];
-  const _hoisted_17 = ["value"];
-  const _hoisted_18 = ["title"];
-  const _hoisted_19 = /* @__PURE__ */ vue.createElementVNode("span", { class: "icon-delete" }, null, -1);
-  const _hoisted_20 = [
-    _hoisted_19
-  ];
-  const _hoisted_21 = { class: "tableActionBar" };
-  const _hoisted_22 = ["href"];
-  const _hoisted_23 = /* @__PURE__ */ vue.createElementVNode("span", { class: "icon-add" }, null, -1);
-  const _hoisted_24 = ["action"];
-  const _hoisted_25 = ["value"];
-  const _hoisted_26 = /* @__PURE__ */ vue.createElementVNode("input", {
-    name: "idtokenauth",
-    type: "hidden",
-    value: "all"
-  }, null, -1);
-  const _hoisted_27 = {
+  const _hoisted_17 = ["title"];
+  const _hoisted_18 = { class: "tableActionBar" };
+  const _hoisted_19 = ["href"];
+  const _hoisted_20 = ["action"];
+  const _hoisted_21 = ["value"];
+  const _hoisted_22 = {
     type: "submit",
     class: "table-action delete-all-tokens"
   };
-  const _hoisted_28 = /* @__PURE__ */ vue.createElementVNode("span", { class: "icon-delete" }, null, -1);
   function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_Field = vue.resolveComponent("Field");
     const _component_ContentBlock = vue.resolveComponent("ContentBlock");
@@ -4445,7 +4403,7 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
               vue.createElementVNode("div", {
                 class: "alert alert-info",
                 innerHTML: _ctx.$sanitize(_ctx.changePasswordInfoNotification)
-              }, null, 8, _hoisted_4$1),
+              }, null, 8, _hoisted_4),
               vue.createElementVNode("input", {
                 type: "submit",
                 value: _ctx.translate("General_Save"),
@@ -4469,7 +4427,10 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
       vue.createElementVNode("div", _hoisted_9, [
         _ctx.isUsersAdminEnabled && _ctx.afterPasswordComponent ? (vue.openBlock(), vue.createBlock(vue.resolveDynamicComponent(_ctx.afterPasswordComponent), { key: 0 })) : vue.createCommentVNode("", true)
       ], 512),
-      _hoisted_10,
+      _cache[9] || (_cache[9] = vue.createElementVNode("a", {
+        name: "authtokens",
+        id: "authtokens"
+      }, null, -1)),
       vue.createVNode(_component_ContentBlock, {
         "content-title": _ctx.translate("UsersManager_AuthTokens")
       }, {
@@ -4477,7 +4438,7 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
           var _a2, _b;
           return [
             vue.createElementVNode("p", null, vue.toDisplayString(_ctx.translate("UsersManager_TokenAuthIntro")) + " " + vue.toDisplayString(_ctx.translate("UsersManager_ExpiredTokensDeleteAutomatically")), 1),
-            vue.withDirectives((vue.openBlock(), vue.createElementBlock("table", _hoisted_11, [
+            vue.withDirectives((vue.openBlock(), vue.createElementBlock("table", _hoisted_10, [
               vue.createElementVNode("thead", null, [
                 vue.createElementVNode("tr", null, [
                   vue.createElementVNode("th", null, vue.toDisplayString(_ctx.translate("General_CreationDate")), 1),
@@ -4489,18 +4450,18 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
                 ])
               ]),
               vue.createElementVNode("tbody", null, [
-                !((_a2 = _ctx.tokens) == null ? void 0 : _a2.length) ? (vue.openBlock(), vue.createElementBlock("tr", _hoisted_12, [
+                !((_a2 = _ctx.tokens) == null ? void 0 : _a2.length) ? (vue.openBlock(), vue.createElementBlock("tr", _hoisted_11, [
                   vue.createElementVNode("td", {
                     colspan: 5,
                     innerHTML: _ctx.$sanitize(_ctx.noTokenCreatedYetText)
-                  }, null, 8, _hoisted_13)
+                  }, null, 8, _hoisted_12)
                 ])) : vue.createCommentVNode("", true),
                 (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(_ctx.tokens || [], (theToken) => {
                   return vue.openBlock(), vue.createElementBlock("tr", {
                     key: theToken.idusertokenauth
                   }, [
                     vue.createElementVNode("td", null, [
-                      vue.createElementVNode("span", _hoisted_14, vue.toDisplayString(theToken.date_created), 1)
+                      vue.createElementVNode("span", _hoisted_13, vue.toDisplayString(theToken.date_created), 1)
                     ]),
                     vue.createElementVNode("td", null, vue.toDisplayString(theToken.description), 1),
                     vue.createElementVNode("td", null, vue.toDisplayString(theToken.last_used ? theToken.last_used : _ctx.translate("General_Never")), 1),
@@ -4516,18 +4477,20 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
                           name: "nonce",
                           type: "hidden",
                           value: _ctx.deleteTokenNonce
-                        }, null, 8, _hoisted_16),
+                        }, null, 8, _hoisted_15),
                         vue.createElementVNode("input", {
                           name: "idtokenauth",
                           type: "hidden",
                           value: theToken.idusertokenauth
-                        }, null, 8, _hoisted_17),
+                        }, null, 8, _hoisted_16),
                         vue.createElementVNode("button", {
                           type: "submit",
                           class: "table-action",
                           title: _ctx.translate("General_Delete")
-                        }, _hoisted_20, 8, _hoisted_18)
-                      ], 8, _hoisted_15)
+                        }, [..._cache[5] || (_cache[5] = [
+                          vue.createElementVNode("span", { class: "icon-delete" }, null, -1)
+                        ])], 8, _hoisted_17)
+                      ], 8, _hoisted_14)
                     ])
                   ]);
                 }), 128))
@@ -4535,14 +4498,14 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
             ])), [
               [_directive_content_table]
             ]),
-            vue.createElementVNode("div", _hoisted_21, [
+            vue.createElementVNode("div", _hoisted_18, [
               vue.createElementVNode("a", {
                 href: _ctx.addNewTokenLink,
                 class: "addNewToken"
               }, [
-                _hoisted_23,
+                _cache[6] || (_cache[6] = vue.createElementVNode("span", { class: "icon-add" }, null, -1)),
                 vue.createTextVNode(" " + vue.toDisplayString(_ctx.translate("UsersManager_CreateNewToken")), 1)
-              ], 8, _hoisted_22),
+              ], 8, _hoisted_19),
               ((_b = _ctx.tokens) == null ? void 0 : _b.length) ? (vue.openBlock(), vue.createElementBlock("form", {
                 key: 0,
                 method: "post",
@@ -4553,13 +4516,17 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
                   name: "nonce",
                   type: "hidden",
                   value: _ctx.deleteTokenNonce
-                }, null, 8, _hoisted_25),
-                _hoisted_26,
-                vue.createElementVNode("button", _hoisted_27, [
-                  _hoisted_28,
+                }, null, 8, _hoisted_21),
+                _cache[8] || (_cache[8] = vue.createElementVNode("input", {
+                  name: "idtokenauth",
+                  type: "hidden",
+                  value: "all"
+                }, null, -1)),
+                vue.createElementVNode("button", _hoisted_22, [
+                  _cache[7] || (_cache[7] = vue.createElementVNode("span", { class: "icon-delete" }, null, -1)),
                   vue.createTextVNode(" " + vue.toDisplayString(_ctx.translate("UsersManager_DeleteAllTokens")), 1)
                 ])
-              ], 8, _hoisted_24)) : vue.createCommentVNode("", true)
+              ], 8, _hoisted_20)) : vue.createCommentVNode("", true)
             ])
           ];
         }),
@@ -4672,7 +4639,6 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
   const _hoisted_1 = ["innerHTML"];
   const _hoisted_2 = { style: { "margin-left": "20px" } };
   const _hoisted_3 = ["href"];
-  const _hoisted_4 = /* @__PURE__ */ vue.createElementVNode("br", null, null, -1);
   function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_PersonalSettings = vue.resolveComponent("PersonalSettings");
     const _component_NewsletterSettings = vue.resolveComponent("NewsletterSettings");
@@ -4710,7 +4676,7 @@ ${CoreHome.translate("UsersManager_CopyDeniedHints", [`<br><span class="invite-l
           vue.createElementVNode("span", _hoisted_2, [
             vue.createElementVNode("a", { href: _ctx.setIgnoreCookieLink }, [
               vue.createTextVNode(" › " + vue.toDisplayString(_ctx.ignoreCookieSet ? _ctx.translate("UsersManager_ClickHereToDeleteTheCookie") : _ctx.translate("UsersManager_ClickHereToSetTheCookieOnDomain", _ctx.piwikHost)) + " ", 1),
-              _hoisted_4
+              _cache[0] || (_cache[0] = vue.createElementVNode("br", null, null, -1))
             ], 8, _hoisted_3)
           ])
         ]),
