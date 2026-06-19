@@ -3688,6 +3688,18 @@ parameters:
 			path: plugins/BotTracking/Reports/AbstractAIChatbotContentUrlReport.php
 
 		-
+			message: '#^Call to Piwik\\Plugin\\Report\:\:configureView\(\) on a separate line has no effect\.$#'
+			identifier: staticMethod.resultUnused
+			count: 1
+			path: plugins/BotTracking/Reports/AbstractAIChatbotFavouredPagesReport.php
+
+		-
+			message: '#^Call to Piwik\\Plugin\\Report\:\:init\(\) on a separate line has no effect\.$#'
+			identifier: staticMethod.resultUnused
+			count: 1
+			path: plugins/BotTracking/Reports/AbstractAIChatbotFavouredPagesReport.php
+
+		-
 			message: '#^Call to Piwik\\Plugin\\Report\:\:init\(\) on a separate line has no effect\.$#'
 			identifier: staticMethod.resultUnused
 			count: 1
@@ -4322,12 +4334,6 @@ parameters:
 			identifier: identical.alwaysFalse
 			count: 1
 			path: plugins/CoreVisualizations/Visualizations/Sparklines/Config.php
-
-		-
-			message: '#^Call to Piwik\\Widget\\Widget\:\:configure\(\) on a separate line has no effect\.$#'
-			identifier: staticMethod.resultUnused
-			count: 1
-			path: plugins/CoreVisualizations/Widgets/SingleMetricView.php
 
 		-
 			message: '#^Method Piwik\\Plugins\\CoreVue\\Commands\\Build\:\:buildFiles\(\) should return int but returns bool\.$#'
@@ -5534,12 +5540,6 @@ parameters:
 			identifier: varTag.nativeType
 			count: 1
 			path: plugins/PrivacyManager/Settings/ReportRetention.php
-
-		-
-			message: '#^Call to Piwik\\Widget\\Widget\:\:configure\(\) on a separate line has no effect\.$#'
-			identifier: staticMethod.resultUnused
-			count: 1
-			path: plugins/ProfessionalServices/Widgets/PromoAbTesting.php
 
 		-
 			message: '#^Property Piwik\\Plugins\\ProfessionalServices\\Widgets\\PromoServices\:\:\$advertising is never read, only written\.$#'
