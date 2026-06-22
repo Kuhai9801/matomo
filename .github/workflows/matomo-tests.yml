@@ -362,9 +362,9 @@ jobs:
             | while read -r plugin; do
                 [ -n "$plugin" ] || continue
 
-                if [ ! -e "plugins/$plugin/.git" ]; then
-                  printf '%s\n' "$plugin"
-                fi
+                # include both core plugins and submodule plugins, so the UI screenshots of
+                # submodule plugins are regenerated and uploaded as build artifacts as well
+                printf '%s\n' "$plugin"
               done)
 
           matrix=$(printf '%s\n' "$plugins" \
