@@ -95,7 +95,11 @@ function resolveBrowserExecutablePath() {
  * The config object passed to the headless browser used by Puppeteer
  */
 const browserConfig = {
-    args: ['--no-sandbox', '--ignore-certificate-errors']
+    args: ['--no-sandbox', '--ignore-certificate-errors'],
+    // Puppeteer 24 defaults protocolTimeout to 180s, which is below the 240s mocha test timeout, so
+    // a slow CDP call (e.g. a screenshot or evaluate on a heavy page under CI load) can abort a test
+    // with a ProtocolError before mocha's own timeout applies. Raise it so the mocha timeout governs.
+    protocolTimeout: 300000
 };
 
 const browserExecutablePath = resolveBrowserExecutablePath();
