@@ -10,6 +10,7 @@
 var fs = require('fs'),
     path = require('path'),
     resolveUrl = require('url').resolve,
+    qs = require('qs'),
     testingEnvironmentOverridePath = path.join(PIWIK_INCLUDE_PATH, '/tmp/testingPathOverride.json');
 
 var DEFAULT_UI_TEST_FIXTURE_NAME = "Piwik\\Tests\\Fixtures\\UITestFixture";
@@ -94,18 +95,11 @@ TestingEnvironment.prototype.callController = function (method, params) {
 };
 
 TestingEnvironment.prototype._call = async function (params) {
-    let queryString = Object.keys(params).reduce(function (obj, name) {
-        if (params[name] instanceof Array) {
-            params[name].forEach(function(value, index) {
-                obj[name+'['+index+']'] = value;
-            });
-            return obj;
-        }
-        obj[name] = params[name];
-        return obj;
-    }, {});
+    // qs.stringify serialises nested objects/arrays using bracket notation (e.g.
+    // settingValues[Live][0][name]=...), which is what request's "qs" option did and what the PHP
+    // proxy expects. URLSearchParams cannot do this (it stringifies nested values as [object Object]).
     const uri = resolveUrl(config.piwikUrl, '/tests/PHPUnit/proxy/index.php');
-    const httpResponse = await fetch(uri + '?' + new URLSearchParams(queryString).toString());
+    const httpResponse = await fetch(uri + '?' + qs.stringify(params));
     let response = await httpResponse.text();
 
     if (response === '') {
