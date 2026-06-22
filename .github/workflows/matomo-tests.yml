@@ -319,7 +319,7 @@ jobs:
         with:
           test-type: 'JS'
           php-version: '7.2'
-          node-version: '12'
+          node-version: '24'
   Client:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
