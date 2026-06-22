@@ -10,7 +10,6 @@
 var fs = require('fs'),
     path = require('path'),
     resolveUrl = require('url').resolve,
-    request = require('request-promise'),
     testingEnvironmentOverridePath = path.join(PIWIK_INCLUDE_PATH, '/tmp/testingPathOverride.json');
 
 var DEFAULT_UI_TEST_FIXTURE_NAME = "Piwik\\Tests\\Fixtures\\UITestFixture";
@@ -105,10 +104,9 @@ TestingEnvironment.prototype._call = async function (params) {
         obj[name] = params[name];
         return obj;
     }, {});
-    let response = await request({
-        uri: resolveUrl(config.piwikUrl, '/tests/PHPUnit/proxy/index.php'),
-        qs: queryString,
-    });
+    const uri = resolveUrl(config.piwikUrl, '/tests/PHPUnit/proxy/index.php');
+    const httpResponse = await fetch(uri + '?' + new URLSearchParams(queryString).toString());
+    let response = await httpResponse.text();
 
     if (response === '') {
         return '';
