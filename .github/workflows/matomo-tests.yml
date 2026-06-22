@@ -397,7 +397,7 @@ jobs:
           ui-test-options: '--plugin=${{ matrix.plugin }}'
           test-type: 'UI'
           php-version: '7.2'
-          node-version: '16'
+          node-version: '24'
           redis-service: true
           artifacts-pass: ${{ secrets.ARTIFACTS_PASS }}
           upload-artifacts: true
@@ -426,7 +426,7 @@ jobs:
             --test-group=${{ strategy.job-index }}
           test-type: 'UI'
           php-version: '7.2'
-          node-version: '16'
+          node-version: '24'
           redis-service: true
           artifacts-pass: ${{ secrets.ARTIFACTS_PASS }}
           upload-artifacts: true
