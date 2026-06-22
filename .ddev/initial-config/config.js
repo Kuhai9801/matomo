@@ -11,11 +11,11 @@ const browserConfig = {
   args: ['--no-sandbox', '--ignore-certificate-errors']
 };
 
-// Puppeteer's bundled Chromium is amd64-only. When running on an arm64
-// container (e.g. Apple Silicon without Rosetta), fall back to the system
-// Chromium so UI tests still execute -- screenshots won't match CI in that
-// case (the configure-platform.sh hook prints a warning).
-if (process.arch !== 'x64' && fs.existsSync('/usr/bin/chromium')) {
+// Puppeteer 24 downloads an arch-appropriate Chrome during `npm install` and can run on both amd64
+// and arm64, but we prefer the Chromium the ddev web image installs: it's always present, avoids a
+// per-arch branch, and keeps the local browser consistent across machines. Local screenshots may
+// still differ slightly from the CI-generated expected screenshots.
+if (fs.existsSync('/usr/bin/chromium')) {
   browserConfig.executablePath = '/usr/bin/chromium';
 }
 
