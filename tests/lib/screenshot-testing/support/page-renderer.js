@@ -15,13 +15,18 @@ const parseUrl = urlModule.parse,
     formatUrl = urlModule.format;
 
 const AJAX_IDLE_THRESHOLD = 750; // same as networkIdle event
+// A request still pending after this long is treated as stalled and no longer blocks network-idle
+// detection. With request interception enabled, Chrome may leave a redundant resource fetch (e.g. a
+// webfont revalidation that is never needed because the font already rendered from cache) pending
+// indefinitely, never emitting requestfinished/requestfailed, which would otherwise hang
+// waitForNetworkIdle forever.
+const STALLED_REQUEST_THRESHOLD = 5000;
 const VERBOSE = false;
 const PAGE_METHODS_TO_PROXY = [
     '$',
     '$$',
     '$$eval',
     '$eval',
-    '$x',
     'bringToFront',
     'click',
     'content',
@@ -61,8 +66,6 @@ const PAGE_METHODS_TO_PROXY = [
     'waitForFunction',
     'waitForNavigation',
     'waitForSelector',
-    'waitForTimeout',
-    'waitForXPath',
     'screenshotNoResize',
 ];
 
@@ -88,7 +91,7 @@ var PageRenderer = function (baseUrl, browser, originalUserAgent) {
     this.pageLogs = [];
     this.baseUrl = baseUrl;
     this.lifeCycleEventEmitter = new EventEmitter();
-    this.activeRequestCount = 0;
+    this.pendingRequests = new Map();
 
     if (this.baseUrl.substring(-1) !== '/') {
         this.baseUrl = this.baseUrl + '/';
@@ -107,13 +110,13 @@ PageRenderer.prototype.createPage = async function () {
     if (this.browserContext) {
       await this.browserContext.close();
     }
-    this.browserContext = await this.browser.createIncognitoBrowserContext();
+    this.browserContext = await this.browser.createBrowserContext();
     this.webpage = await this.browserContext.newPage();
 
-    if (this.activeRequestCount > 0) {
-      console.log('! activeRequestCount is ' + this.activeRequestCount + '. Resetting it as new browserContext has started.');
-      // unset active request count, to ensure unresolved requests from previous suites don't cause any issues
-      this.activeRequestCount = 0;
+    if (this.pendingRequests.size > 0) {
+      console.log('! pendingRequests size is ' + this.pendingRequests.size + '. Resetting it as new browserContext has started.');
+      // clear pending requests, to ensure unresolved requests from previous suites don't cause any issues
+      this.pendingRequests.clear();
     }
 
     PAGE_PROPERTIES_TO_PROXY.forEach((propertyName) => {
@@ -123,7 +126,7 @@ PageRenderer.prototype.createPage = async function () {
       });
     });
 
-    await this.webpage._client.send('Animation.setPlaybackRate', { playbackRate: 50 }); // make animations run 50 times faster, so we don't have to wait as much
+    await this.webpage._client().send('Animation.setPlaybackRate', { playbackRate: 50 }); // make animations run 50 times faster, so we don't have to wait as much
     await this.webpage.setViewport({
       width: 1350,
       height: 768,
@@ -136,6 +139,18 @@ PageRenderer.prototype.createPage = async function () {
 };
 
 /**
+ * Waits for the given number of milliseconds.
+ *
+ * Puppeteer removed page.waitForTimeout in v22, so we provide it here. Specs (including ones in
+ * plugin submodules) rely on the page.waitForTimeout(ms) API, so this keeps them working unchanged.
+ *
+ * @param {number} milliseconds
+ */
+PageRenderer.prototype.waitForTimeout = function (milliseconds) {
+    return new Promise((resolve) => setTimeout(resolve, milliseconds));
+}
+
+/**
  * For BC only. Puppeteer drop support for waitFor function in Version 10
  * @param selectorOrTimeoutOrFunction
  */
@@ -144,7 +159,7 @@ PageRenderer.prototype.waitFor = function (selectorOrTimeoutOrFunction) {
     if (typeof selectorOrTimeoutOrFunction === 'function') {
         return this.webpage.waitForFunction(selectorOrTimeoutOrFunction)
     } else if (typeof selectorOrTimeoutOrFunction === 'number') {
-        return this.webpage.waitForTimeout(selectorOrTimeoutOrFunction)
+        return this.waitForTimeout(selectorOrTimeoutOrFunction)
     } else if (typeof selectorOrTimeoutOrFunction === 'string') {
         return this.webpage.waitForSelector(selectorOrTimeoutOrFunction)
     }
@@ -331,10 +346,21 @@ PAGE_METHODS_TO_PROXY.forEach(function (methodName) {
     };
 });
 
+PageRenderer.prototype.getActiveRequestCount = function () {
+    const now = Date.now();
+    let count = 0;
+    for (const startedAt of this.pendingRequests.values()) {
+        if (now - startedAt < STALLED_REQUEST_THRESHOLD) {
+            count++;
+        }
+    }
+    return count;
+};
+
 PageRenderer.prototype.waitForNetworkIdle = async function () {
     await new Promise(resolve => setTimeout(resolve, AJAX_IDLE_THRESHOLD));
 
-    while (this.activeRequestCount > 0) {
+    while (this.getActiveRequestCount() > 0) {
         await new Promise(resolve => setTimeout(resolve, AJAX_IDLE_THRESHOLD));
     }
 
@@ -375,7 +401,7 @@ PageRenderer.prototype.waitForLazyImages = async function () {
     });
 
     if (hasImages) {
-        await this.webpage.waitForTimeout(200); // wait for the browser to request the images
+        await this.waitForTimeout(200); // wait for the browser to request the images
         await this.waitForNetworkIdle(); // wait till all requests are finished
     }
 };
@@ -402,8 +428,8 @@ PageRenderer.prototype._logMessage = function (message) {
 
 PageRenderer.prototype.clearCookies = async function () {
     // see https://github.com/GoogleChrome/puppeteer/issues/1632#issuecomment-353086292
-    await this.webpage._client.send('Network.clearBrowserCookies');
-    await this.webpage.waitForTimeout(250);
+    await this.webpage._client().send('Network.clearBrowserCookies');
+    await this.waitForTimeout(250);
 };
 
 PageRenderer.prototype._setupWebpageEvents = function () {
@@ -431,7 +457,7 @@ PageRenderer.prototype._setupWebpageEvents = function () {
         this.webpage.addStyleTag({content: '* { caret-color: transparent !important; -webkit-transition: none !important; transition: none !important; -webkit-animation: none !important; animation: none !important; }'});
     });
 
-    this.webpage._client.on('Page.lifecycleEvent', (event) => {
+    this.webpage._client().on('Page.lifecycleEvent', (event) => {
         this.lifeCycleEventEmitter.emit('lifecycleEvent', event);
     });
 
@@ -442,7 +468,7 @@ PageRenderer.prototype._setupWebpageEvents = function () {
 
     this.webpage.setRequestInterception(true);
     this.webpage.on('request', (request) => {
-        ++this.activeRequestCount;
+        this.pendingRequests.set(request, Date.now());
 
         var url = request.url();
 
@@ -481,7 +507,7 @@ PageRenderer.prototype._setupWebpageEvents = function () {
 
     // TODO: self.aborted?
     this.webpage.on('requestfailed', async (request) => {
-        --this.activeRequestCount;
+        this.pendingRequests.delete(request);
 
         const failure = request.failure();
         const response = request.response();
@@ -493,7 +519,7 @@ PageRenderer.prototype._setupWebpageEvents = function () {
     });
 
     this.webpage.on('requestfinished', async (request) => {
-        --this.activeRequestCount;
+        this.pendingRequests.delete(request);
 
         const response = request.response();
 
@@ -512,12 +538,12 @@ PageRenderer.prototype._setupWebpageEvents = function () {
     });
 
     this.webpage.on('console', async (consoleMessage) => {
-        const args = await Promise.all(consoleMessage.args().map(arg => arg.executionContext().evaluate(arg => {
+        const args = await Promise.all(consoleMessage.args().map(arg => arg.evaluate(arg => {
             if (arg instanceof Error) {
                 return arg.stack || arg.message;
             }
             return arg;
-        }, arg))).catch((e) => {
+        }))).catch((e) => {
           console.log(`Could not print message: ${e.message}`);
           console.log(consoleMessage.text());
         });
