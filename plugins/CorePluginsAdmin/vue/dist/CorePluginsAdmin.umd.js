@@ -7876,7 +7876,11 @@ var __async = (__this, __arguments, generator) => {
       modelValue: [Number, String],
       modelModifiers: Object,
       availableOptions: Array,
-      title: String
+      title: String,
+      searchOnGroup: {
+        type: Boolean,
+        default: false
+      }
     },
     directives: {
       FocusAnywhereButHere: CoreHome.FocusAnywhereButHere,
@@ -7922,6 +7926,12 @@ var __async = (__this, __arguments, generator) => {
       isSearchMatch(value) {
         const stringValue = `${value != null ? value : ""}`;
         return this.normalize(stringValue).indexOf(this.searchTermNormalized) !== -1 || stringValue.toLowerCase().indexOf(this.searchTermLowercase) !== -1;
+      },
+      visibleChildren(options) {
+        if (this.searchOnGroup && this.isSearchMatch(options.group)) {
+          return options.values;
+        }
+        return options.values.filter((x) => this.isSearchMatch(x.value));
       },
       onBlur() {
         this.showSelect = false;
@@ -8018,7 +8028,7 @@ var __async = (__this, __arguments, generator) => {
                 }, null, 2)
               ], 8, _hoisted_6$5),
               vue.withDirectives(vue.createElementVNode("ul", _hoisted_7$5, [
-                (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(options.values.filter((x) => _ctx.isSearchMatch(x.value)), (children) => {
+                (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(_ctx.visibleChildren(options), (children) => {
                   return vue.openBlock(), vue.createElementBlock("li", {
                     class: "expandableListItem collection-item valign-wrapper",
                     key: children.key,
@@ -8037,7 +8047,7 @@ var __async = (__this, __arguments, generator) => {
                 [vue.vShow, _ctx.showCategory === options.group || _ctx.searchTerm]
               ])
             ])), [
-              [vue.vShow, options.values.filter((x) => _ctx.isSearchMatch(x.value)).length]
+              [vue.vShow, _ctx.visibleChildren(options).length]
             ]);
           }), 128))
         ])
@@ -9482,6 +9492,7 @@ var __async = (__this, __arguments, generator) => {
       description: String,
       introduction: String,
       title: String,
+      searchOnGroup: Boolean,
       inlineHelp: [String, Object],
       inlineHelpBind: Object,
       disabled: Boolean,
@@ -9539,6 +9550,7 @@ var __async = (__this, __arguments, generator) => {
           inlineHelpBind: this.inlineHelpBind,
           errorMessage: this.errorMessage,
           title: this.title,
+          searchOnGroup: this.searchOnGroup,
           component: this.component,
           uiControlAttributes: __spreadProps(__spreadValues({}, this.uiControlAttributes), {
             disabled: this.disabled,
