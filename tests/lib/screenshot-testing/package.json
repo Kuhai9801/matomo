@@ -8,16 +8,15 @@
     "node": ">=24.0.0 <25.0.0"
   },
   "dependencies": {
-    "chai": "^4.3.4",
+    "chai": "^4.5.0",
     "chai-files": "^1.4.0",
-    "fs-extra": "^7.0.1",
-    "mocha": "^8.2.0",
+    "fs-extra": "^11.3.5",
+    "mocha": "^11.7.6",
     "puppeteer": "^24.0.0",
-    "@testomatio/reporter": "^1.0.9",
+    "@testomatio/reporter": "^1.6.17",
     "mocha-multi-reporters": "^1.5.1"
   },
   "overrides": {
-    "shell-quote": "^1.8.3",
     "axios": "^1.12.2"
   }
 }
