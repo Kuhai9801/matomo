@@ -171,6 +171,10 @@ describe("CustomDimensions", function () {
     it('should disable configure button when no dimensions are left for a scope', async function () {
         await capturePageWrap('manage_configure_button_disabled', async function () {
             await page.click('.scope-visit .btn');
+            // Wait for the edit form to render before typing: this test opens the form and types in
+            // the same step (unlike the earlier create tests which split those across steps), so the
+            // form is not yet present otherwise under the modern headless Chrome.
+            await page.waitForSelector('.editCustomDimension #name');
             await page.type(".editCustomDimension #name", 'Last Name');
             await page.click('.editCustomDimension .create');
             await page.waitForNetworkIdle();
