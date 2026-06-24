@@ -64,6 +64,9 @@ describe("OneClickLastForcedUpdate", function () {
     });
 
     it('should update successfully and show the finished update screen', async function () {
+        // Wait for the update button to render before clicking: under the modern headless Chrome it
+        // is not always present immediately after the previous (failed-update) step.
+        await page.waitForSelector('#updateUsingHttp', { visible: true });
         await page.click('#updateUsingHttp');
         await page.waitForNetworkIdle();
         await page.waitForSelector('.content');
