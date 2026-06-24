@@ -466,6 +466,13 @@ PageRenderer.prototype._setupWebpageEvents = function () {
     var piwikHost = parsedPiwikUrl.hostname,
         piwikPort = parsedPiwikUrl.port;
 
+    // Disable the browser cache so each navigation re-fetches the page. Puppeteer 8 disabled the
+    // cache implicitly when request interception was enabled; that no longer happens with the
+    // cooperative interception mode in current Puppeteer, which let navigations serve stale pages
+    // (e.g. a report rendered before a testEnvironment identity/permission change), causing flaky,
+    // state-dependent screenshot diffs under the modern headless Chrome.
+    this.webpage.setCacheEnabled(false);
+
     this.webpage.setRequestInterception(true);
     this.webpage.on('request', (request) => {
         this.pendingRequests.set(request, Date.now());
