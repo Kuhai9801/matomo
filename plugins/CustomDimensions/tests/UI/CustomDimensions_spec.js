@@ -22,17 +22,18 @@ describe("CustomDimensions", function () {
 
     var popupSelector = '.ui-dialog:visible';
 
-    async function capturePageWrap (screenName, test) {
-        await captureSelector(screenName, '.pageWrap', test)
+    async function capturePageWrap (screenName, test, comparisonThreshold) {
+        await captureSelector(screenName, '.pageWrap', test, comparisonThreshold)
     }
 
-    async function captureSelector(screenName, selector, test) {
+    async function captureSelector(screenName, selector, test, comparisonThreshold) {
         await page.webpage.setViewport({
             width: 1350,
             height: 768,
         });
         await test();
-        expect(await page.screenshotSelector(selector)).to.matchImage(screenName);
+        const expectation = comparisonThreshold ? { imageName: screenName, comparisonThreshold } : screenName;
+        expect(await page.screenshotSelector(selector)).to.matchImage(expectation);
     }
 
     async function closeOpenedPopover()
@@ -117,7 +118,8 @@ describe("CustomDimensions", function () {
 
             await page.click('.extraction1 .icon-plus');
             await page.type('.extraction2 #pattern2', 'thirdpattern_(.+)test');
-        });
+        // tolerate minor text-edge anti-aliasing variance (~0.01%) between runs on the new Chrome
+        }, 0.001);
     });
 
     it('should be possible to remove a defined extraction', async function () {
