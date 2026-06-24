@@ -21,10 +21,11 @@ describe("RateFeature", function () {
         await page.goto(url);
         await page.waitForNetworkIdle();
 
-        // Wait for the RateFeature Vue component to mount and bind its @click handler before
+        // Wait for the RateFeature Vue component to render and bind its @click handler before
         // clicking: under the new headless Chrome the icon can exist in the DOM a moment before
-        // the handler is attached, so an early click never opens the modal.
-        const like = await page.waitForSelector('.like-icon', { visible: true });
+        // the handler is attached, so an early click never opens the modal. (Don't require
+        // visibility - the icons render at opacity 0.2 until hovered.)
+        const like = await page.waitForSelector('.like-icon');
         await page.waitForTimeout(250);
         await like.evaluate(b => b.click());
 
@@ -55,7 +56,7 @@ describe("RateFeature", function () {
         await page.waitForNetworkIdle();
 
         // See note above: wait for the Vue component to bind @click before clicking the icon.
-        const like = await page.waitForSelector('.dislike-icon', { visible: true });
+        const like = await page.waitForSelector('.dislike-icon');
         await page.waitForTimeout(250);
         await like.evaluate(b => b.click());
 
