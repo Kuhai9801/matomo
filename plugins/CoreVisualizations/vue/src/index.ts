@@ -7,3 +7,4 @@
 
 export { default as SeriesPicker } from './SeriesPicker/SeriesPicker.vue';
 export { default as SingleMetricView } from './SingleMetricView/SingleMetricView.vue';
+export { default as SparklinesGrid } from './SparklinesGrid/SparklinesGrid.vue';
