@@ -140,13 +140,18 @@ describe("SegmentManagementPageTest", function () {
       try {
         await openPage();
 
-        const titles = await getSegmentActionState(globalSegment.name);
-
         const expectedTitles = await page.evaluate(() => ({
           star: _pk_translate('General_CanNotStarGlobalSegment'),
           edit: _pk_translate('General_CanNotEditGlobalSegment'),
           delete: _pk_translate('General_CanNotDeleteGlobalSegment'),
         }));
+
+        // Wait for the row to settle into the view-user (disabled) permission state before reading
+        // the tooltips: under the new headless Chrome the star button can briefly expose the default
+        // "can star" tooltip before the view-only permission logic applies.
+        await waitForSegmentStarTooltipContains(globalSegment.name, expectedTitles.star);
+
+        const titles = await getSegmentActionState(globalSegment.name);
 
         expect(titles.rowCount).to.equal(1);
         expect(titles.starTitle).to.equal(expectedTitles.star);
