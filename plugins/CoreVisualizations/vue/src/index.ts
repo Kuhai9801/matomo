@@ -6,6 +6,5 @@
  */
 
 export { default as EvolutionBadge } from './EvolutionBadge/EvolutionBadge.vue';
-export { default as EvolutionTrendIcon } from './EvolutionBadge/EvolutionTrendIcon.vue';
 export { default as SeriesPicker } from './SeriesPicker/SeriesPicker.vue';
 export { default as SingleMetricView } from './SingleMetricView/SingleMetricView.vue';
